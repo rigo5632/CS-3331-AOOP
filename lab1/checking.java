@@ -2,17 +2,17 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
+import java.io.*;
 
 class checking{
     public static void main(String[] args)throws FileNotFoundException{
         String storage[][] = fileDimensions();
-        String logs[][] = new String[storage.length][5];
+        String logs[]= new String[5];
         getUsers(storage);
-        menu(storage);
-
+        menu(storage, logs);
     }
 
-    public static void menu(String storage[][]){
+    public static void menu(String storage[][], String logs[]){
         try{
             Scanner scnr = new Scanner(System.in);
             System.out.println("***********************");
@@ -31,15 +31,15 @@ class checking{
                 System.out.println("Invalid Account Number! Please Select 1 - " + storage.length);
                 System.exit(0);
             }
-            userMenu(menuChoice, storage);
+            userMenu(menuChoice, storage, logs);
         }catch(InputMismatchException IME){
-            System.out.println("Invalid Input! fds");
-            menu(storage);
+            System.out.println("Invalid Input!");
+            menu(storage, logs);
         }
 
     }
 
-    public static void userMenu(int menuChoice, String storage[][]){
+    public static void userMenu(int menuChoice, String storage[][], String logs[]){
         Scanner scnr = new Scanner(System.in);
         System.out.println("\n********************");
         System.out.println("* Account Overview *");
@@ -54,17 +54,28 @@ class checking{
         System.out.print("Select: ");
         int userDo = scnr.nextInt();
 
-        if(userDo == 1)paySomeone(menuChoice, storage);
-        else if(userDo == 2)deposit(menuChoice, storage);
-        else if(userDo == 3)withdraw(menuChoice, storage);
-        else if(userDo == 4)System.exit(0);
+        if(userDo == 1)paySomeone(menuChoice, storage, logs);
+        else if(userDo == 2)deposit(menuChoice, storage, logs);
+        else if(userDo == 3)withdraw(menuChoice, storage, logs);
+        else if(userDo == 4){
+            try{
+                PrintWriter logFile = new PrintWriter(new FileWriter("User Bank Logs.txt"));
+                for(int i = 0; i < logs.length; i++){
+                    if(logs[i] != null)logFile.println(logs[i]);
+                }
+                logFile.close();
+                System.exit(0);
+            }catch(IOException ex){
+                System.out.println("jnfkdsfhsadjkl");
+            }
+        }
         else{
             System.out.println("Invalid Account Action");
-            userMenu(menuChoice, storage);
+            userMenu(menuChoice, storage, logs);
         }
     }
 
-    public static void paySomeone(int userAccount, String db[][]){
+    public static void paySomeone(int userAccount, String db[][], String logs[]){
         Scanner scnr = new Scanner(System.in);
         int counter = 1;
         System.out.println("\n********************");
@@ -91,16 +102,18 @@ class checking{
 
         if(amount > Double.parseDouble(db[userAccount][5])){
             System.out.println("Please select an amount lower than $" + db[userAccount][5]);
-            paySomeone(userAccount, db);
+            paySomeone(userAccount, db, logs);
         }
         if(amount < Double.parseDouble(db[userAccount][5])){
             db[userAccount][5] = Double.toString(Double.parseDouble(db[userAccount][5]) - amount);
             db[payChoice][5] = Double.toString(Double.parseDouble(db[payChoice][5]) - amount);
+            String userAction = "Payed: " + db[payChoice][0] + " " + db[payChoice][1] + " Amount: " + amount;
+            userLogs(userAction, userAccount, logs);
         }
-        userMenu(userAccount, db);
+        userMenu(userAccount, db, logs);
     }
     
-    public static void deposit(int userAccount, String db[][]){
+    public static void deposit(int userAccount, String db[][], String logs[]){
         Scanner scnr = new Scanner(System.in);
         System.out.println("\n********************");
         System.out.println("* Deposit *");
@@ -108,10 +121,12 @@ class checking{
         System.out.print("Deposit Amount: $");
         double depositAmount = scnr.nextDouble();
         db[userAccount][5] = Double.toString(Double.parseDouble(db[userAccount][5]) + depositAmount);
-        userMenu(userAccount, db);
+        String userAction = "Deposit made of $" + depositAmount + " to " + db[userAccount][2];
+        userLogs(userAction, userAccount, logs);
+        userMenu(userAccount, db, logs);
     }
 
-    public static void withdraw(int userAccount, String db[][]){
+    public static void withdraw(int userAccount, String db[][], String logs[]){
         Scanner scnr = new Scanner(System.in);
         System.out.println("\n********************");
         System.out.println("* Withdraw *");
@@ -121,12 +136,40 @@ class checking{
 
         if(withdrawAmount > Double.parseDouble(db[userAccount][5])){
             System.out.println("Please select an amount lower than $" + db[userAccount][5]);
-            withdraw(userAccount, db);
+            withdraw(userAccount, db, logs);
         }
         if(withdrawAmount <= Double.parseDouble(db[userAccount][5])){
             db[userAccount][5] = Double.toString(Double.parseDouble(db[userAccount][5]) - withdrawAmount);
+            String userAction = "Withdraw made of $" + withdrawAmount + " to " + db[userAccount][2];
+            userLogs(userAction, userAccount, logs);
         }
-        userMenu(userAccount, db);
+        userMenu(userAccount, db, logs);
+    }
+
+    public static void userLogs(String accountActions, int userAccount, String logs[]){
+        if(logs[logs.length-1] != null){
+            resizeLogs(logs, userAccount);
+        }
+        
+        for(int i = 0; i < logs.length; i++){
+            if(logs[i] == null){
+                logs[i] = accountActions;
+                break;
+            }
+        }
+    }
+
+    public static void resizeLogs(String logs[], int userAccount){
+        String temp[] = new String[logs.length];
+
+        for(int i = 0; i < logs.length; i++){
+            temp[i] = logs[i];
+        }
+
+        logs = new String[logs.length*2];
+        for(int i = 0; i < temp.length; i++){
+            logs[i] = temp[i];
+        } 
     }
 
     public static void getUsers(String[][] s)throws FileNotFoundException{
