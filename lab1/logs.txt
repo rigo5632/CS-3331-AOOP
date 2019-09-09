@@ -1,4 +1,4 @@
 User: Mickey Mouse
 Account: 5600945
 Description:	Destination:	Amount:	Balance:
-Payed: Aladdin Disney	Amount: $200.0	 Current Balance: $585.05
+Payed: Donald Duck	Amount: $324.0	 Current Balance: $461.04999999999995
