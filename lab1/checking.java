@@ -11,6 +11,10 @@
         stored the into a data strcuture, I created some methods that would handle the Bank Features. After the user
         has finished using the bank features, a file will be automatically created will all the logs/actions theyr
         preformed while they were logged in.
+    Honesty Statement:
+        I confirm that the work of this assignment is completely my own. By turning in this assignment. 
+        I declare that I did not receive unauthorized assistance. Moreover, all deliverables including, 
+        but not limited to the source code, lab report and output files were written and produced by me alone.
 */
 
 

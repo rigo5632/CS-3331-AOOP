@@ -1,6 +1,8 @@
-User: Pluto Disney
-Account: 5600949
+User: Mickey Mouse
+Account: 5600945
 
 Description:	Destination:	Amount:	Balance:
-Payed: Jasmine Disney	Amount: $500.0	 Current Balance: $1.9300000000000068
-Deposit: Pluto Disney	Amount: $10.5	 Current Balance: $12.430000000000007
+Payed: Donald Duck	Amount: $100.0	 Current Balance: $685.05
+Deposit: Mickey Mouse	Amount: $200.05	 Current Balance: $885.0999999999999
+Withdrew: Mickey Mouse	Amount: $50.5	 Current Balance: $834.5999999999999
+Deposit: Mickey Mouse	Amount: $1000.0	 Current Balance: $1834.6
