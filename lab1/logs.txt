@@ -1,0 +1,4 @@
+User: Mickey Mouse
+Account: 5600945
+Description:	Destination:	Amount:	Balance:
+Payed: Aladdin Disney	Amount: $200.0	 Current Balance: $585.05
