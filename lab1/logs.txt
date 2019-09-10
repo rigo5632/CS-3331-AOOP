@@ -1,8 +1,9 @@
-User: Mickey Mouse
-Account: 5600945
+User: Goofy Disney
+Account: 5600948
+Starting Balance: 541.28
+
 
 Description:	Destination:	Amount:	Balance:
-Payed: Donald Duck	Amount: $100.0	 Current Balance: $685.05
-Deposit: Mickey Mouse	Amount: $200.05	 Current Balance: $885.0999999999999
-Withdrew: Mickey Mouse	Amount: $50.5	 Current Balance: $834.5999999999999
-Deposit: Mickey Mouse	Amount: $1000.0	 Current Balance: $1834.6
+Deposit: Goofy Disney	Amount: $50	 Current Balance: $591.28
+Withdrew: Goofy Disney	Amount: $50	 Current Balance: $541.28
+Payed: Donald Duck	Amount: $60	 Current Balance: $481.28

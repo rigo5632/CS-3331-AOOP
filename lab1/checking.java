@@ -9,12 +9,25 @@
         get balance, deposit, withdraw, and pay someone. We will get user information from a txt file, which contains
         firstname, lastname, account number, checking, savings, balance, and interest rate. Once the information has been
         stored the into a data strcuture, I created some methods that would handle the Bank Features. After the user
-        has finished using the bank features, a file will be automatically created will all the logs/actions theyr
+        has finished using the bank features, a file will be automatically created with all the logs/actions they
         preformed while they were logged in.
     Honesty Statement:
         I confirm that the work of this assignment is completely my own. By turning in this assignment. 
         I declare that I did not receive unauthorized assistance. Moreover, all deliverables including, 
         but not limited to the source code, lab report and output files were written and produced by me alone.
+    Assumptions:
+        1. "Bank users.txt" will always have the same number of columns, and the columns will always be in the 
+        same order (first name, lastname, account number, checking, savings, balance and interest rate)
+
+        2. Each User will be able to log in once, there is not feature for them to log-out of their account
+        and access other accounts. (Only way of doing that would be to exit program and re-execute program)
+
+        3. "Bank users.txt" is not being updated when user does an action EX: Balance. Each time the program 
+        executes the data will be reset to its original data set.
+
+        4. "Log.txt" will only record the actions of one users account and not record other changes that happen
+        to other users. If Pluto decides to pay Micky, then the log file will only record the changes made in
+        Pluo's account, but it will not display the changes made in Micky's account. 
 */
 
 
@@ -22,6 +35,7 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.io.*;
+import java.text.DecimalFormat;
 
 class checking{
     public static void main(String[] args)throws FileNotFoundException{
@@ -58,7 +72,8 @@ class checking{
             PrintWriter logWriter = new PrintWriter(writer);
             logWriter.println("User: " + storage[menuChoice][0] + " " + storage[menuChoice][1]);
             logWriter.println("Account: " + storage[menuChoice][2]);
-            logWriter.println("\nDescription:\tDestination:\tAmount:\tBalance:");
+            logWriter.println("Starting Balance: " + storage[menuChoice][5]);
+            logWriter.println("\n\nDescription:\tDestination:\tAmount:\tBalance:");
             logWriter.close();
             
             userMenu(menuChoice, storage);
@@ -74,12 +89,14 @@ class checking{
     public static void userMenu(int menuChoice, String storage[][]){
         try{
             // Prints out User menu: Deposit, Withdraw, etc.
+            DecimalFormat df = new DecimalFormat();
+            df.setMaximumFractionDigits(2);
             Scanner scnr = new Scanner(System.in);
             System.out.println("\n********************");
             System.out.println("* Account Overview *");
             System.out.println("********************");
             System.out.println("Welcome " + storage[menuChoice][0] + " " + storage[menuChoice][1]);
-            System.out.println("Current Balance: " + storage[menuChoice][5]);
+            System.out.println("Current Balance: $" + df.format(Double.parseDouble(storage[menuChoice][5])));
             System.out.println("=====================");
             System.out.println("1. Pay Someone");
             System.out.println("2. Deposit");
@@ -107,11 +124,17 @@ class checking{
     public static void paySomeone(int userAccount, String db[][]){
         try{
             // Pay someone menu
+            DecimalFormat df = new DecimalFormat("#.##");
             Scanner scnr = new Scanner(System.in);
             int counter = 1;
             System.out.println("\n********************");
             System.out.println("* Pay Someone *");
             System.out.println("********************");
+
+            if(Double.parseDouble(db[userAccount][5]) <= 0){
+                System.out.println("No Money in account. Please Deposit");
+                userMenu(userAccount, db);
+            }
 
             for(int i = 0; i < db.length; i++){
                 if(i != userAccount){
@@ -130,18 +153,23 @@ class checking{
             // User Amount
             System.out.print("Amount: $");
             double amount = scnr.nextDouble();
+
+            if(amount < 0){
+                System.out.println("Please enter a positive number");
+                paySomeone(userAccount, db);
+            }
             // If the amount is greater than the money in their balance
             if(amount > Double.parseDouble(db[userAccount][5])){
                 System.out.println("Please select an amount lower than $" + db[userAccount][5]);
                 paySomeone(userAccount, db);
             }
             // otherwise we will update the 2D array and start writing our logs in file
-            if(amount < Double.parseDouble(db[userAccount][5])){
+            if(amount <= Double.parseDouble(db[userAccount][5])){
                 // Updates 2-D Array
-                db[userAccount][5] = Double.toString(Double.parseDouble(db[userAccount][5]) - amount);
-                db[payChoice][5] = Double.toString(Double.parseDouble(db[payChoice][5]) - amount);
+                db[userAccount][5] = df.format(Double.parseDouble(db[userAccount][5]) - amount);
+                db[payChoice][5] = Double.toString(Double.parseDouble(db[payChoice][5]) + amount);
                 // Info that will be stored in log file
-                String userAction = "Payed: " + db[payChoice][0] + " " + db[payChoice][1] + "\tAmount: $" + amount + "\t Current Balance: $" + db[userAccount][5];
+                String userAction = "Payed: " + db[payChoice][0] + " " + db[payChoice][1] + "\tAmount: $" + df.format(amount) + "\t Current Balance: $" + db[userAccount][5];
                 userLogs(userAction, userAccount, db);
             }
             userMenu(userAccount, db);
@@ -155,6 +183,7 @@ class checking{
     public static void deposit(int userAccount, String db[][]){
         try{
             // Deposit Menu
+            DecimalFormat df = new DecimalFormat("#.##");
             Scanner scnr = new Scanner(System.in);
             System.out.println("\n********************");
             System.out.println("* Deposit *");
@@ -164,11 +193,16 @@ class checking{
             // User Amount
             double depositAmount = scnr.nextDouble();
 
+            if(depositAmount < 0){
+                System.out.println("Please enter a correct amount");
+                deposit(userAccount, db);
+            }
+
             // Updates 2-D Array
-            db[userAccount][5] = Double.toString(Double.parseDouble(db[userAccount][5]) + depositAmount);
+            db[userAccount][5] = df.format(Double.parseDouble(db[userAccount][5]) + depositAmount);
 
             // Update log file
-            String userAction = "Deposit: " + db[userAccount][0] + " " + db[userAccount][1] + "\tAmount: $" + depositAmount + "\t Current Balance: $" + db[userAccount][5];
+            String userAction = "Deposit: " + db[userAccount][0] + " " + db[userAccount][1] + "\tAmount: $" + df.format(depositAmount) + "\t Current Balance: $" + db[userAccount][5];
             userLogs(userAction, userAccount, db);
             userMenu(userAccount, db);
         // catches if user inputs something other than doubles
@@ -181,13 +215,25 @@ class checking{
     public static void withdraw(int userAccount, String db[][]){
         try{
             // Withdraw Menu
+            DecimalFormat df = new DecimalFormat("#.##");
             Scanner scnr = new Scanner(System.in);
             System.out.println("\n********************");
             System.out.println("* Withdraw *");
             System.out.println("********************");
+
+            if(Double.parseDouble(db[userAccount][5]) <= 0){
+                System.out.println("No Money in account. Please Deposit");
+                userMenu(userAccount, db);
+            }
+
             System.out.print("Withdraw Amount: $");
             // withdraw amount
             double withdrawAmount = scnr.nextDouble();
+
+            if(withdrawAmount < 0){
+                System.out.println("Please enter a positive Number");
+                withdraw(userAccount, db);
+            }
 
             // Resets if withdraw amount is greater than balance amount
             if(withdrawAmount > Double.parseDouble(db[userAccount][5])){
@@ -196,8 +242,8 @@ class checking{
             }
             // Updates info if withdraw amount is greater than or equal to the user balance 
             if(withdrawAmount <= Double.parseDouble(db[userAccount][5])){
-                db[userAccount][5] = Double.toString(Double.parseDouble(db[userAccount][5]) - withdrawAmount);
-                String userAction = "Withdrew: " + db[userAccount][0] + " " + db[userAccount][1] + "\tAmount: $" + withdrawAmount + "\t Current Balance: $" + db[userAccount][5];
+                db[userAccount][5] = df.format(Double.parseDouble(db[userAccount][5]) - withdrawAmount);
+                String userAction = "Withdrew: " + db[userAccount][0] + " " + db[userAccount][1] + "\tAmount: $" + df.format(withdrawAmount) + "\t Current Balance: $" + (db[userAccount][5]);
                 userLogs(userAction, userAccount, db);
             }
             userMenu(userAccount, db);
