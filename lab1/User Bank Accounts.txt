@@ -1,0 +1,17 @@
+Mickey	Mouse	5600945	true	false	835.05	0.20%
+Donald	Duck	5600946	true	false	1882.1	0.20%
+Minnie	Mouse	5600947	true	false	801.24	0.20%
+Goofy	Disney	5600948	true	false	541.28	0.20%
+Pluto	Disney	5600949	true	false	478.6	0.20%
+Chip	Disney	5600950	true	false	940.87	0.20%
+Dale	Disney	5600951	true	false	956.83	0.20%
+Cinderella	Disney	5600952	true	false	130.89	0.20%
+Ariel	Disney	5600953	true	false	9.35	0.20%
+Jasmine	Disney	5600954	true	false	1260.12	0.20%
+Aladdin	Disney	5600955	true	false	791.59	0.20%
+Simba	Disney	5600956	true	false	157.98	0.20%
+Mufassa	Disney	5600957	true	false	755.66	0.20%
+Aurora	Disney	5600958	true	false	1760.64	0.20%
+Peter	Pan	5600959	true	false	276.65	0.20%
+Woody	Disney	5600960	true	false	1519.03	0.20%
+Buzz	Lightyear	5600961	true	false	267.86	0.20%

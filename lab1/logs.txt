@@ -1,9 +1,8 @@
-User: Goofy Disney
-Account: 5600948
-Starting Balance: 541.28
-
+User: Pluto Disney
+Account: 5600949
+Starting Balance: 501.93
 
 Description:	Destination:	Amount:	Balance:
-Deposit: Goofy Disney	Amount: $50	 Current Balance: $591.28
-Withdrew: Goofy Disney	Amount: $50	 Current Balance: $541.28
-Payed: Donald Duck	Amount: $60	 Current Balance: $481.28
+Deposit: Pluto Disney	Amount: $50	 Current Balance: $551.93
+Withdrew: Pluto Disney	Amount: $23.33	 Current Balance: $528.6
+Payed: Mickey Mouse	Amount: $50	 Current Balance: $478.6

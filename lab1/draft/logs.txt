@@ -1,0 +1,9 @@
+User: Goofy Disney
+Account: 5600948
+Starting Balance: 541.28
+
+
+Description:	Destination:	Amount:	Balance:
+Deposit: Goofy Disney	Amount: $50	 Current Balance: $591.28
+Withdrew: Goofy Disney	Amount: $50	 Current Balance: $541.28
+Payed: Donald Duck	Amount: $60	 Current Balance: $481.28
