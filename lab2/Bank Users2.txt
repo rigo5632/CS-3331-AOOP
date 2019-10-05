@@ -1,0 +1,37 @@
+First Name	Last Name	Date of Birth	IdentificatioNumber	Address	Phone Number	Checking Account Number	Savings Account Number	Credit Account Number	Checking Starting Balance	Savings Starting Balance	Credit Starting Balance
+Mickey	Mouse	"September 19, 1949"	000-00-0001	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1000	2000	3000	1598.93	4151.51	-1785.62
+Donald	Duck	"July 7, 1949"	000-00-0002	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1001	2001	3001	1460.80	3692.45	-1131.47
+Minnie	Mouse	"April 22, 1947"	000-00-0003	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1002	2002	3002	1875.19	4230.86	-1141.75
+Goofy	Disney	"October 20, 1961"	000-00-0004	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1003	2003	3003	675.99	612.16	-809.05
+Pluto	Disney	"October 7, 2000"	000-00-0005	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1004	2004	3004	1566.01	3466.90	-134.36
+Chip	Disney	"September 15, 1938"	000-00-0006	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1005	2005	3005	1030.97	1860.03	-15.29
+Dale	Disney	"September 20, 2001"	000-00-0007	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1006	2006	3006	25.16	2797.02	-236.11
+Cinderella	Disney	"March 29, 1943"	000-00-0008	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1007	2007	3007	867.34	834.18	-1422.99
+Ariel	Disney	"January 3, 1971"	000-00-0009	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1008	2008	3008	758.57	3239.19	-1846.72
+Jasmine	Disney	"September 8, 1960"	000-00-0010	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1009	2009	3009	150.25	1108.64	-887.86
+Aladdin	Disney	"August 16, 1989"	000-00-0011	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1010	2010	3010	1290.05	1511.23	-780.50
+Simba	Disney	"April 18, 2007"	000-00-0012	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1011	2011	3011	1622.25	180.29	-497.20
+Mufassa	Disney	"December 15, 1948"	000-00-0013	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1012	2012	3012	1808.17	3698.83	-128.52
+Aurora	Disney	"June 11, 1964"	000-00-0014	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1013	2013	3013	734.26	2009.90	-96.42
+Peter	Pan	"May 11, 1999"	000-00-0015	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1014	2014	3014	1083.47	1508.63	-884.59
+Woody	Disney	"October 7, 1953"	000-00-0016	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1015	2015	3015	1281.87	869.50	-100.84
+Buzz	Lightyear	"November 14, 1964"	000-00-0017	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1016	2016	3016	965.07	736.34	-674.25
+Jafar	Aladdin	"November 28, 2000"	000-00-0018	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1017	2017	3017	685.06	446.51	-71.99
+Ursela	Mermaid	"April 8, 2001"	000-00-0019	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1018	2018	3018	1076.09	1255.03	-548.68
+Beast	Disney	"February 6, 1997"	000-00-0020	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1019	2019	3019	400.48	1289.90	-988.31
+Belle	Disney	"June 28, 1988"	000-00-0021	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1020	2020	3020	741.96	4865.79	-1732.12
+Cruella	De Vil	"March 28, 1986"	000-00-0022	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1021	2021	3021	1943.57	1907.20	-957.64
+Scar	Lion	"September 13, 1946"	000-00-0023	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1022	2022	3022	1155.49	4169.78	-534.93
+Simba	King	"May 25, 1938"	000-00-0024	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1023	2023	3023	1101.27	802.42	-797.73
+Gaston	Disney	"December 1, 1975"	000-00-0025	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1024	2024	3024	780.70	4092.56	-688.46
+Shere	Khan	"September 23, 2005"	000-00-0026	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1025	2025	3025	1590.44	4829.97	-1617.52
+Captaiin	Hook	"December 11, 1993"	000-00-0027	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1026	2026	3026	661.83	3745.85	-1556.62
+Kaa	Disney	"February 16, 1986"	000-00-0028	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1027	2027	3027	259.53	2964.84	-1547.86
+Evil	Queen	"January 20, 2005"	000-00-0029	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1028	2028	3028	1616.39	2837.18	-369.02
+Pinocchio	Disney	"October 17, 1993"	000-00-0030	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1029	2029	3029	1800.71	4748.29	-1607.26
+Prince	Eric	"November 4, 1967"	000-00-0031	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1030	2030	3030	1963.61	2737.72	-1845.56
+Quasimodo	Disney	"September 17, 1972"	000-00-0032	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1031	2031	3031	1712.15	1677.79	-1047.39
+Hercules	Disney	"October 8, 1963"	000-00-0033	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1032	2032	3032	315.04	3010.61	-424.77
+Mulan	Disney	"August 10, 1946"	000-00-0034	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1033	2033	3033	987.32	1741.39	-1901.80
+Lilo	Disney	"October 11, 1996"	000-00-0035	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1034	2034	3034	423.62	76.39	-1178.17
+Stitch	Disney	"January 11, 1959"	000-00-0036	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1035	2035	3035	677.74	4408.47	-750.99
