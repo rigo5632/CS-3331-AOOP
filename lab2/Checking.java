@@ -1,22 +1,38 @@
 public class Checking extends Account{
-    private double balance;
-    private int accountNumber;
+    public Checking(int accNum, double b){
+        super(accNum, b);
+    }
 
-    public Checking(){}
-    public Checking(int aNum, double b){
-        this.balance = b;
-        this.accountNumber = aNum;
+    @Override
+    public boolean withdraw(double amount){
+        if(super.getBalance() <= 0){
+            System.out.println("\n********************");
+            System.out.println("Please Deposit");
+            System.out.println("********************\n");
+            return false;
+        }
+        if(amount < 0 || amount >= super.getBalance()){
+            System.out.println("\n********************");
+            System.out.println("Please enter a correct amount");
+            System.out.println("********************\n");
+            return false;
+        }
+        super.updateBalance(super.getBalance()-amount);
+        return true;
     }
-    public int getAccountNumber(){
-        return this.accountNumber;
-    }
-    public void withdraw(double amount){
-        this.balance -= amount;
-    }
-    public void deposit(double amount){
-        this.balance += amount;
-    }
-    public double getBalance(){
-        return this.balance;
+
+    @Override
+    public boolean transfer(Account transferAccount, double amount){
+        if(amount < 0 || amount > super.getBalance()){
+            System.out.println("\n********************");
+            System.out.println("Please enter a correct amount");
+            System.out.println("********************\n");
+            return false;
+        }
+        super.updateBalance(super.getBalance()-amount);
+        System.out.println("Account: " + super.getBalance());
+        transferAccount.updateBalance(transferAccount.getBalance() + amount);
+        System.out.println("Transfer Account: " + transferAccount.getBalance());
+        return true;
     }
 }
