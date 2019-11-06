@@ -5,31 +5,31 @@ Mickey	Mouse	Savings	inquires
 Mickey	Mouse	Checking	withdraws				100
 			deposits	Mickey	Mouse	Savings	500
 Mickey	Mouse	Savings	transfers	Mickey	Mouse	Credit	300
-deposits	Sean	Aguilar	Checking	5000
-deposits	Aaron	Alarcon	Checking	5000
-deposits	Bryant	Allsup	Checking	5000
-deposits	Nathan	Aun	Checking	5000
-deposits	William	Basquez	Checking	5000
-deposits	Fabian	Cano	Checking	5000
-deposits	Denise	Castro	Checking	5000
-deposits	Karla	Chavez	Checking	5000
-deposits	Solomon	Davis	Checking	5000
-deposits	Hugo	Dominguez	Checking	5000
-deposits	Seth	Flores	Checking	5000
-deposits	Anthony	Herrera	Checking	5000
-deposits	Juan	Isasi	Checking	5000
-deposits	Valeria	Macias	Checking	5000
-deposits	Ana	Mata Sanchez	Checking	5000
-deposits	Bryan	Molina	Checking	5000
-deposits	Ericka	Najera	Checking	5000
-deposits	Cesar	Padron	Checking	5000
-deposits	Ricardo	Pena	Checking	5000
-deposits	Rigoberto	Quiroz	Checking	5000
-deposits	Kevin	Ramirez	Checking	5000
-deposits	Joshua	Ramos	Checking	5000
-deposits	Lewis	Roe	Checking	5000
-deposits	Laila	Romero	Checking	5000
-deposits	Paola	Terrazas	Checking	5000
+			deposits	Sean	Aguilar	Checking	5000
+			deposits	Aaron	Alarcon	Checking	5000
+			deposits	Bryant	Allsup	Checking	5000
+			deposits	Nathan	Aun	Checking	5000
+			deposits	William	Basquez	Checking	5000
+			deposits	Fabian	Cano	Checking	5000
+			deposits	Denise	Castro	Checking	5000
+			deposits	Karla	Chavez	Checking	5000
+			deposits	Solomon	Davis	Checking	5000
+			deposits	Hugo	Dominguez	Checking	5000
+			deposits	Seth	Flores	Checking	5000
+			deposits	Anthony	Herrera	Checking	5000
+			deposits	Juan	Isasi	Checking	5000
+			deposits	Valeria	Macias	Checking	5000
+			deposits	Ana	Mata Sanchez	Checking	5000
+			deposits	Bryan	Molina	Checking	5000
+			deposits	Ericka	Najera	Checking	5000
+			deposits	Cesar	Padron	Checking	5000
+			deposits	Ricardo	Pena	Checking	5000
+			deposits	Rigoberto	Quiroz	Checking	5000
+			deposits	Kevin	Ramirez	Checking	5000
+			deposits	Joshua	Ramos	Checking	5000
+			deposits	Lewis	Roe	Checking	5000
+			deposits	Laila	Romero	Checking	5000
+			deposits	Paola	Terrazas	Checking	5000
 Sean	Aguilar	Checking	pays	Daniel	Mejia	Checking	1000
 Aaron	Alarcon	Checking	pays	Daniel	Mejia	Checking	1000
 Bryant	Allsup	Checking	pays	Daniel	Mejia	Checking	1000
@@ -105,4 +105,4 @@ Ariel	Disney	Checking	pays	Lewis	Roe	Checking	40.11
 Jasmine	Disney	Savings	withdraws			Savings	87
 Aladdin	Disney	Checking	pays	Laila	Romero	Checking	33.28
 Simba	Disney	Savings	withdraws			Savings	54
-Mufassa	Disney	Checking	pays	Paola	Terrazas	Checking	100.00
+Mufassa	Disney	Checking	pays	Paola	Terrazas	Checking	44.76

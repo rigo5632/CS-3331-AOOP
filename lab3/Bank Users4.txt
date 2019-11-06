@@ -75,4 +75,3 @@ Daniel	J	"November 14, 2010"	72	"500 W. University Ave, El Paso, TX 79968"	(915)
 Daniel	K	"November 16, 1945"	73	"500 W. University Ave, El Paso, TX 79968"	(915) 747-5011	1072	2072	3072	20.09	1616.96	-448.56	9692
 Daniel	L	"November 30, 1974"	74	"500 W. University Ave, El Paso, TX 79968"	(915) 747-5012	1073	2073	3073	565.51	4848.75	-12.20	7263
 Daniel	N	"January 23, 1942"	75	"500 W. University Ave, El Paso, TX 79968"	(915) 747-5013	1074	2074	3074	497.63	1553.46	-456.40	5307
-Mickey	Mouse	"October 27, 1952"	1	"1313 Disneyland Dr, Anaheim, CA 92802"	(714) 781-4636	1000	2000	3000	1718.69	231.94	-274.31	7788

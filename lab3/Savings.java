@@ -1,10 +1,10 @@
 // Extends the features of account
 public class Savings extends Account{
-    
-    /** 
+
+    /**
      * @param accNum
      * @param b
-     * @return 
+     * @return
      */
     // contsructor
     Savings(int accNum, double b){
@@ -12,9 +12,9 @@ public class Savings extends Account{
         super(accNum, b);
     }
 
-    
-    /** 
-     * This Method overides the funtionality of withdraw 
+
+    /**
+     * This Method overides the funtionality of withdraw
      * method in account class. User will not be able to withdraw
      * money from their savings account
      * @param amount
@@ -22,15 +22,35 @@ public class Savings extends Account{
      */
     @Override
     public boolean withdraw(double amount){
-        System.out.println("Cannot withdraw from savings");
-        return true;
+      // if balance of checking is less than or equal than 0
+      if(super.getBalance() <= 0){
+          System.out.println("\n********************");
+          System.out.println("Please Deposit");
+          System.out.println("********************\n");
+          return false;
+      }
+      //amount is less than or greater than the current balance the user has
+      if(amount < 0 || amount >= super.getBalance()){
+          System.out.println("\n********************");
+          System.out.println("Please enter a correct amount");
+          System.out.println("********************\n");
+          return false;
+      }
+      // updates the balance
+      super.updateBalance(super.getBalance()-amount);
+      return true;
     }
 
-    
-    /** 
+    @Override
+    public int getMax(){
+      return -1;
+    }
+
+
+    /**
      * This method will override the transfer method in account class.
      * Will transfer money to the transfer account the user selected
-     * 
+     *
      * @param transferAccount
      * @param amount
      * @return boolean

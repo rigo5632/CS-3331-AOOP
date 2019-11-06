@@ -29,6 +29,8 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.io.*;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class RunBank implements Log{
     public static void main(String[] args){
@@ -58,10 +60,19 @@ public class RunBank implements Log{
         }
     }
 
+    public static String getTime(){
+      SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm:ss");
+      Date date = new Date();
+      return formatTime.format(date);
+    }
+
     public static boolean transactionBuffer(Bank db, String sn, String ss, String a, String rn, String rd, String sa){
       Bank user = autoLogin(db, sn);
+      if(a.toLowerCase().compareTo("deposits") == 0 && user == null){
+        user = autoLogin(db, rn);
+        ss = "checking";
+      }
       if(user == null)return false;
-      //System.out.println("Transaction File:\nType:\tStatus:");
       if(a.toLowerCase().compareTo("deposits") == 0){
         if(deposit(user, true, ss, Double.parseDouble(sa))){
           //System.out.println("Deposit Transaction Complete: " + sn + " " + a + " " +sa);
@@ -108,6 +119,7 @@ public class RunBank implements Log{
       String recieverName = "";
       String recieverDestination = "";
       String senderAmount = "0";
+      int transactionDone = 2;
 
       try{
         File file = new File(fileName);
@@ -131,13 +143,12 @@ public class RunBank implements Log{
             }
           }
           if(!transactionBuffer(db, senderName, senderSouce, action, recieverName, recieverDestination, senderAmount)){
-            System.out.println("Transaction status: FAILED");
+            System.out.println(transactionDone + ": Transaction status: FAILED");
             System.out.println(line + "\n");
-            //System.out.printf("Sender Name: %s Sender Source: %s Action: %s Reciever Name: %s Reciever Dest: %s Sender Amount: %s \n", senderName, senderSouce, action, recieverName, recieverDestination, senderAmount);
-            //System.out.println("Failed to make transaction!");
           }else{
-            System.out.println("Transaction status: COMPLETE");
+            System.out.println(transactionDone + ": Transaction status: COMPLETE");
           }
+          transactionDone++;
         }
         return true;
       }catch(FileNotFoundException FNFE){
@@ -190,14 +201,14 @@ public class RunBank implements Log{
     /**
      * This method will be accesed once the user decides to
      * terminate the program (not when they decide to log out).
-     * Record all the new accounts in Bank Users2 Updated.txt file.
+     * Record all the new accounts in Bank Users Updated.txt file.
      *
      * @param database
      */
     public static void printUpdatedBank(Bank database){
         try{
             // name of file
-            File file = new File("Bank Users2 Updated.txt");
+            File file = new File("Bank Users Updated.txt");
             FileWriter writer = new FileWriter(file);
             PrintWriter update = new PrintWriter(writer);
             update.println("First Name\tLast Name\tDate of Birth\tIndetification Number\tAddres\tPhone Number\tChecking Account Number\tSavings Account Number\tCredit Account Number\tChecking Balance\tSavings Balance\tCredit Balance");
@@ -281,10 +292,129 @@ public class RunBank implements Log{
         return null;
     }
 
-    public static boolean createUser(Bank database){
+    public static String idGetter(Bank db){
+      while(db.next != null){
+        db = db.next;
+      }
+      return db.getPersonID();
+    }
+
+    public static String checkData(String field){
       Scanner scnr = new Scanner(System.in);
-      System.out.println("Creating Users...");
-      return true;
+      String userInput;
+      if(field.compareTo("firstname") == 0 || field.compareTo("lastname") == 0){
+        System.out.print("Please Enter " + field + "\n>");
+        userInput = scnr.nextLine();
+        if(userInput.contains("\t") || userInput.contains(" ") || userInput.length() == 0)return checkData(field);
+        return userInput;
+      }
+      if(field.compareTo("dob") == 0){
+        System.out.print("Please enter date of birth\n>");
+        userInput = scnr.nextLine();
+        if(userInput.contains("\t") || userInput.contains(" ") || userInput.length() == 0)return checkData(field);
+        return userInput;
+      }
+      if(field.compareTo("address") == 0){
+        System.out.print("Please enter address\n>");
+        userInput = scnr.nextLine();
+        if(userInput.contains("\t") || userInput.contains(" ") || userInput.length() == 0)return checkData(field);
+        return userInput;
+      }
+      if(field.compareTo("phone") == 0){
+        System.out.print("Please enter phone number\n> ");
+        userInput = scnr.nextLine();
+        if(userInput.contains("\t") || userInput.contains(" ") || userInput.length() == 0)return checkData(field);
+        return userInput;
+      }
+      if(field.compareTo("savings account number") == 0){
+        System.out.print("Please enter savings account number\n> ");
+        userInput = scnr.nextLine();
+        //if(userInput.contains("\t") || userInput.contains(" ") || userInput.length() == 0)return checkData(field);
+        try{
+          Integer.parseInt(userInput);
+        }catch(NumberFormatException NFE){
+          return checkData(field);
+        }
+        return userInput;
+      }
+      if(field.compareTo("savings balance") == 0){
+        System.out.print("Please enter savings balance\n> ");
+        userInput = scnr.nextLine();
+        //if(userInput.contains("\t") || userInput.contains(" ") || userInput.length() == 0)return checkData(field);
+        try{
+          Double.parseDouble(userInput);
+        }catch(NumberFormatException NFE){
+          return checkData(field);
+        }
+        return userInput;
+      }
+      if(field.compareTo("checking account number") == 0 || field.compareTo("credit account number") == 0){
+        System.out.print("Please enter " + field + " if applicable. Leave blank if you do not have one! \n> ");
+        userInput = scnr.nextLine();
+        try{
+          Integer.parseInt(userInput);
+        }catch(NumberFormatException NFE){
+          return "0";
+        }
+        return userInput;
+      }
+      else{
+        System.out.print("Please enter " + field + " if applicable. Leave blank if you do not have one! \n>");
+        userInput = scnr.nextLine();
+        try{
+          Double.parseDouble(userInput);
+        }catch(NumberFormatException NFE){
+          return "0.0";
+        }
+        return userInput;
+      }
+
+    }
+
+    public static void addUser(Bank db, String fn, String ln, String dob, String id, String addr, String p, String can, String san, String crdan, String checkB, String savB, String crdB, String crdMax){
+      Bank tempBank = db;
+      while(tempBank.next != null){
+        tempBank = tempBank.next;
+      }
+      Person person = new Customer(fn, ln, dob, id, addr, p);
+      Account checking = new Checking(Integer.parseInt(can), Double.parseDouble(checkB));
+      Account savings = new Savings(Integer.parseInt(san), Double.parseDouble(savB));
+      Account credit = new Credit(Integer.parseInt(crdan), Double.parseDouble(crdB), Integer.parseInt(crdMax));
+      tempBank.next = new Bank(person, checking, savings, credit);
+    }
+
+    public static boolean createUser(Bank database){
+      String firstName = "";
+      String lastName = "";
+      String dateOfBirth = "";
+      String identification = "";
+      String address = "";
+      String phone = "";
+      String checkingAccountNum = "0";
+      String savingsAccountNum = "0";
+      String creditAccountNum = "0";
+      String checkingBalance = "0";
+      String savingsBalance = "0";
+      String creditBalance = "0";
+      String creditMax = "0";
+
+      firstName = checkData("firstname");
+      lastName = checkData("lastname");
+      dateOfBirth = checkData("dob");
+      identification = idGetter(database);
+      address = checkData("address");
+      phone = checkData("phone");
+      checkingAccountNum = checkData("checking account number");
+      if(checkingAccountNum.length() > 1)checkingBalance = checkData("checking balance");
+      savingsAccountNum = checkData("savings account number");
+      savingsBalance = checkData("savings balance");
+      creditAccountNum = checkData("credit account number");
+      if(creditAccountNum.length() > 1){
+        creditBalance = checkData("credit balance");
+        creditMax = checkData("credit max");
+      }
+      addUser(database, firstName, lastName, dateOfBirth, identification, address, phone, checkingAccountNum, savingsAccountNum, creditAccountNum, checkingBalance, savingsBalance, creditBalance, creditMax);
+      return false;
     }
 
     /**
@@ -362,9 +492,20 @@ public class RunBank implements Log{
     }
 
     public static void makeStatement(Bank db){
-      Bank usertotest = autoLogin(db, "Rigoberto Quiroz");
-      BankStatements ass = new BankStatements(usertotest);
-      ass.statement();
+      Scanner scnr = new Scanner(System.in);
+      String managerUser = scnr.nextLine();
+      Bank userToStatement = autoLogin(db, managerUser);
+      /*if(userToStatement == null){
+        System.out.println("Did not file user!");
+        makeStatement(db);
+      }
+      */
+      while(userToStatement == null){
+        managerUser = scnr.nextLine();
+        userToStatement = autoLogin(db, managerUser);
+      }
+      BankStatements userStatement = new BankStatements(userToStatement);
+      userStatement.statement();
     }
 
     /**
@@ -443,14 +584,16 @@ public class RunBank implements Log{
 
                 // checking account data
                 if(userChoice == 1){
-                    System.out.println("\nChecking Account Number: " + user.getCheckingAccountNumber());
-                    System.out.println("Checking Balance: " + user.getCheckingBalance());
-                    // log
-                    logs = user.getPersonName() + " inquire Checking Balance " + user.getCheckingAccountNumber() + ": $" + user.getCheckingBalance();
-                    user.addLog(logs);
-                    //user.printLogs();
-                    userAction(logs);
-                    inquire = false;
+                  System.out.println("*****************************************");
+                  System.out.println("\nChecking Account Number: " + user.getCheckingAccountNumber());
+                  System.out.println("Checking Balance: " + user.getCheckingBalance());
+                  System.out.println("*****************************************\n");
+                  // log
+                  logs = user.getPersonName() + " inquire Checking Balance " + user.getCheckingAccountNumber() + ": $" + user.getCheckingBalance();
+                  user.addLog(logs);
+                  //user.printLogs();
+                  userAction(logs);
+                  inquire = false;
                 }
                 //savings account data
                 else if(userChoice == 2){
@@ -467,14 +610,16 @@ public class RunBank implements Log{
                 }
                 // credit account data
                 else if(userChoice == 3){
-                    System.out.println("\nCredit Account Number: " + user.getCreditAccountNumber());
-                    System.out.println("Credit Balance: " + user.getCreditBalance());
-                    // log
-                    logs = user.getPersonName() + " inquire Credit Balance " + user.getCreditAccountNumber() + ": $" + user.getCreditBalance();
-                    user.addLog(logs);
-                    //user.printLogs();
-                    userAction(logs);
-                    inquire = false;
+                  System.out.println("*****************************************\n");
+                  System.out.println("\nCredit Account Number: " + user.getCreditAccountNumber());
+                  System.out.println("Credit Balance: " + user.getCreditBalance());
+                  System.out.println("*****************************************\n");
+                  // log
+                  logs = user.getPersonName() + " inquire Credit Balance " + user.getCreditAccountNumber() + ": $" + user.getCreditBalance();
+                  user.addLog(logs);
+                  //user.printLogs();
+                  userAction(logs);
+                  inquire = false;
                 }
                 // all accounts data
                 else if(userChoice == 4){
@@ -519,7 +664,7 @@ public class RunBank implements Log{
         if(isTransactionFile){
           if(source.toLowerCase().compareTo("checking") == 0 || source == ""){
             if(user.checkingDeposit(amount)){
-              log = user.getPersonName() + " made a deposit in Checkings Account of $" + amount + " " + user.getCheckingAccountNumber() + " Cuurent Balance: $" + user.getCheckingBalance();
+              log = getTime() + ": " + user.getPersonName() + " made a deposit in Checkings Account of $" + amount + " " + user.getCheckingAccountNumber() + " Curent Balance: $" + user.getCheckingBalance();
               user.addLog(log);
               //user.printLogs();
               return true;

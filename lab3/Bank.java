@@ -1,3 +1,5 @@
+import java.io.*;
+
 class Bank{
     private Person person;
     private Account checking;
@@ -35,10 +37,12 @@ class Bank{
     }
 
     // Logs functionality
-    public void printLogs(){
-      for(int i = 0; i < this.logs.length; i++){
-        if(this.logs[i] != null)System.out.println(this.logs[i]);
-      }
+    public String printLogs(int i){
+      return this.logs[i];
+    }
+
+    public int getLogLength(){
+      return this.logs.length;
     }
 
     public void addLog(String l){

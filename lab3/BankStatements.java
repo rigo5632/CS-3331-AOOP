@@ -1,3 +1,5 @@
+import java.io.*;
+
 class BankStatements{
   private Bank user;
 
@@ -6,36 +8,81 @@ class BankStatements{
   }
 
   public void customerInformation(){
-    System.out.println("Customer Information");
-    System.out.println("-----------------------------------------------------");
-    System.out.println("Full Name:     " + user.getPersonName());
-    System.out.println("Date of Birth: " + user.getPersonDateOfBirth());
-    System.out.println("ID Number:     " + user.getPersonID());
-    System.out.println("Address:       " + user.getPersonAddress());
-    System.out.println("Phone Number:  " + user.getPersonPhoneNumber());
-    System.out.println("-----------------------------------------------------");
+    try{
+      File file = new File(user.getPersonName() + "_statement.txt");
+      FileWriter writer = new FileWriter(file, true);
+      PrintWriter logWriter = new PrintWriter(writer);
+      logWriter.println("Customer Information");
+      logWriter.println("-----------------------------------------------------");
+      logWriter.println("Full Name:     " + user.getPersonName());
+      logWriter.println("Date of Birth: " + user.getPersonDateOfBirth());
+      logWriter.println("ID Number:     " + user.getPersonID());
+      logWriter.println("Address:       " + user.getPersonAddress());
+      logWriter.println("Phone Number:  " + user.getPersonPhoneNumber());
+      logWriter.println("-----------------------------------------------------");
+      logWriter.close();
+    }catch(IOException eo){
+      System.out.println("Bank Statement was not able to record statement");
+    }
   }
   public void accountInformation(){
-    System.out.println("Account Information");
-    System.out.println("-----------------------------------------------------");
-    System.out.println("Checking Account Number: " + user.getCheckingAccountNumber());
-    System.out.println("Savings Account Number: " + user.getSavingsAccountNumber());
-    System.out.println("Credit Account Number: " + user.getCreditAccountNumber());
-    System.out.println("-----------------------------------------------------");
+    try{
+      File file = new File(user.getPersonName() + "_statement.txt");
+      FileWriter writer = new FileWriter(file, true);
+      PrintWriter logWriter = new PrintWriter(writer);
+      logWriter.println("Account Information");
+      logWriter.println("-----------------------------------------------------");
+      logWriter.println("Checking Account Number: " + user.getCheckingAccountNumber());
+      logWriter.println("Savings Account Number: " + user.getSavingsAccountNumber());
+      logWriter.println("Credit Account Number: " + user.getCreditAccountNumber());
+      logWriter.println("-----------------------------------------------------");
+      logWriter.close();
+    }catch(IOException eo){
+      System.out.println("Bank Statement was not able to record statement");
+    }
   }
+
   public void startingBalance(){
-    System.out.println("Checking Starting Balance: $" + user.getCheckingStartingBalance());
-    System.out.println("Savings Starting Balance:  $" + user.getSavingsStartingBalance());
+    try{
+      File file = new File(user.getPersonName() + "_statement.txt");
+      FileWriter writer = new FileWriter(file, true);
+      PrintWriter logWriter = new PrintWriter(writer);
+      logWriter.println("Checking Starting Balance: $" + user.getCheckingStartingBalance());
+      logWriter.println("Savings Starting Balance:  $" + user.getSavingsStartingBalance());
+      logWriter.close();
+    }catch(IOException eo){
+      System.out.println("Bank Statement was not able to record statement");
+    }
   }
+
   public void endBalance(){
-    System.out.println("Checking Ending Balance: $" + user.getCheckingBalance());
-    System.out.println("Savings Ending Balance:  $" + user.getSavingsBalance());
+    try{
+      File file = new File(user.getPersonName() + "_statement.txt");
+      FileWriter writer = new FileWriter(file, true);
+      PrintWriter logWriter = new PrintWriter(writer);
+      logWriter.println("Checking Ending Balance: $" + user.getCheckingBalance());
+      logWriter.println("Savings Ending Balance:  $" + user.getSavingsBalance());
+      logWriter.close();
+    }catch(IOException oe){
+      System.out.println("Bank Statement was not able to record statement");
+    }
   }
   public void allTransactions(){
-    System.out.println("Transactions:");
-    System.out.println("-----------------------------------------------------");
-    user.printLogs();
-    System.out.println("-----------------------------------------------------");
+    try{
+      File file = new File(user.getPersonName() + "_statement.txt");
+      FileWriter writer = new FileWriter(file, true);
+      PrintWriter logWriter = new PrintWriter(writer);
+      //int i = 0;
+      logWriter.println("Transactions:");
+      logWriter.println("-----------------------------------------------------");
+      for(int i = 0; i < user.getLogLength(); i++){
+        if(user.printLogs(i) != null)logWriter.println(user.printLogs(i));
+      }
+      logWriter.println("-----------------------------------------------------");
+      logWriter.close();
+    }catch(IOException eo){
+      System.out.println("Bank Statement was not able to record statement");
+    }
   }
   public void statement(){
     customerInformation();
