@@ -1,13 +1,14 @@
 import java.io.*;
 
-class BankStatements{
+class BankStatements implements Log{
   private Bank user;
 
+  BankStatements(){}
   BankStatements(Bank u){
     this.user = u;
   }
 
-  public void customerInformation(){
+  private void customerInformation(){
     try{
       File file = new File(user.getPersonName() + "_statement.txt");
       FileWriter writer = new FileWriter(file, true);
@@ -25,7 +26,8 @@ class BankStatements{
       System.out.println("Bank Statement was not able to record statement");
     }
   }
-  public void accountInformation(){
+
+  private void accountInformation(){
     try{
       File file = new File(user.getPersonName() + "_statement.txt");
       FileWriter writer = new FileWriter(file, true);
@@ -42,7 +44,7 @@ class BankStatements{
     }
   }
 
-  public void startingBalance(){
+  private void startingBalance(){
     try{
       File file = new File(user.getPersonName() + "_statement.txt");
       FileWriter writer = new FileWriter(file, true);
@@ -55,19 +57,21 @@ class BankStatements{
     }
   }
 
-  public void endBalance(){
+  private void endBalance(){
     try{
       File file = new File(user.getPersonName() + "_statement.txt");
       FileWriter writer = new FileWriter(file, true);
       PrintWriter logWriter = new PrintWriter(writer);
       logWriter.println("Checking Ending Balance: $" + user.getCheckingBalance());
       logWriter.println("Savings Ending Balance:  $" + user.getSavingsBalance());
+      logWriter.println("Credit Ending Balance:  $" + user.getCreditBalance());
       logWriter.close();
     }catch(IOException oe){
       System.out.println("Bank Statement was not able to record statement");
     }
   }
-  public void allTransactions(){
+
+  private void allTransactions(){
     try{
       File file = new File(user.getPersonName() + "_statement.txt");
       FileWriter writer = new FileWriter(file, true);

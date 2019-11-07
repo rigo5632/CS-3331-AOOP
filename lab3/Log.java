@@ -1,6 +1,8 @@
 interface Log{
-  // this method will allow us to record all the user actions into the log file.
-  public static void userAction(){}
-    
-
+  private void customerInformation(){};
+  private void accountInformation(){};
+  private void startingBalance(){};
+  private void endBalance(){};
+  private void allTransactions(){};
+  public void statement();
 }
