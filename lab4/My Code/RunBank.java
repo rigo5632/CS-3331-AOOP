@@ -71,26 +71,6 @@ public class RunBank{
     }
 
     /**
-     * asciiChecker: Checking if the input does not have any special characters
-     * in the string
-     * @param  userString String: user input
-     * @return            Boolean: no special characters were found, or false otherwise
-     */
-    public static boolean asciiChecker(String userString){
-      int ascii;
-      // userinput is turn to lowercase
-      userString = userString.toLowerCase();
-      // checks each character
-      for(int i = 0; i < userString.length(); i++){
-        ascii = userString.charAt(i);
-        // special character found
-        if(ascii < 97 || ascii > 122)return false;
-      }
-      // no special character found
-      return true;
-    }
-
-    /**
      * checkData: checks all the user enters to make a new character.
      * @param  field String: what the user is entering for. firstname, address?
      * @return       String: user input checked or fixed
@@ -107,39 +87,39 @@ public class RunBank{
         return checkData(field);
       }
       // date of birth field
-      if(field.compareTo("dob") == 0){
+      else if(field.compareTo("dob") == 0){
         System.out.print("Date of Birth (FORMAT 01/22/2998) (required): ");
         userInput = scnr.nextLine();
         if(Pattern.matches("([0-1][0-9])\\/([0-3]{2})\\/([0-9]{4})", userInput))return userInput;
         return checkData(field);
       }
-      if(field.compareTo("email") == 0){
+      else if(field.compareTo("email") == 0){
         System.out.print(field + " (required): ");
         userInput = scnr.nextLine();
         if(Pattern.matches("^([a-z\\d\\.-]+)@([a-z\\d-]+)\\.([a-z]{2,8})(\\.[a-z]{2,8})?$", userInput))return userInput;
         return checkData(field);
       }
-      if(field.compareTo("password") == 0){
+      else if(field.compareTo("password") == 0){
         System.out.print(field + " (required) EX: password123: ");
         userInput = scnr.nextLine();
         if(Pattern.matches("^[\\w@_-]{8,20}$", userInput))return userInput;
         return checkData(field);
       }
       // address field
-      if(field.compareTo("address") == 0){
+      else if(field.compareTo("address") == 0){
         System.out.print(field + " (required): ");
         userInput = scnr.nextLine();
         if(Pattern.matches("[A-Za-z0-9'\\.\\-\\s\\,]{1,}", userInput))return userInput;
         return checkData(field);
       }
       // phone field
-      if(field.compareTo("phone") == 0){
+      else if(field.compareTo("phone") == 0){
         System.out.print(field + " (required) EX 1112223333: ");
         userInput = scnr.nextLine();
         if(Pattern.matches("^\\d{10}$", userInput))return userInput;
         return checkData(field);
       }
-      if(field.compareTo("checking account number") == 0 || field.compareTo("credit account number") == 0){
+      else if(field.compareTo("checking account number") == 0 || field.compareTo("credit account number") == 0){
         System.out.print(field + " (optional): ");
         userInput = scnr.nextLine();
         if(userInput.compareTo("") == 0)return "0";
@@ -147,37 +127,43 @@ public class RunBank{
         return checkData(field);
       }
       // savings account number
-      if(field.compareTo("savings account number") == 0){
+      else if(field.compareTo("savings account number") == 0){
         System.out.print(field + " (required): ");
         userInput = scnr.nextLine();
         if(Pattern.matches("^\\d{4}$", userInput))return userInput;
         return checkData(field);
       }
-      if(field.compareTo("checking balance") == 0){
+      else if(field.compareTo("checking balance") == 0 || field.compareTo("credit max") == 0){
         System.out.print(field + " (required): $");
         userInput = scnr.nextLine();
         if(Pattern.matches("^\\d{1,}$", userInput))return userInput;
         return checkData(field);
       }
-      if(field.compareTo("savings balance") == 0){
+      else if(field.compareTo("savings balance") == 0){
         System.out.print(field + " (required): $");
         userInput = scnr.nextLine();
         if(Pattern.matches("^\\d{1,}$", userInput))return userInput;
         return checkData(field);
       }
-      if(field.compareTo("credit balance") == 0){
+      else if(field.compareTo("credit balance") == 0){
         System.out.print(field + " (required): -$");
         userInput = scnr.nextLine();
         if(Pattern.matches("^\\d{1,}$", userInput))return userInput;
         return checkData(field);
-      }
-      if(field.compareTo("credit max") == 0){
-        System.out.print(field + " (required): $");
-        userInput = scnr.nextLine();
-        if(Pattern.matches("^\\d{1,}$", userInput))return userInput;
-        return checkData(field);
+      }else{
+        System.out.println("Field requested not found!");
       }
      return null;
+    }
+
+    public static String collision(HashMap<String, Bank> database, String firstName, String lastName){
+      String newHashKey = firstName + " " + lastName;
+      newHashKey = newHashKey.toLowerCase();
+
+      for(String keys: database.keySet()){
+        if(keys.compareTo(newHashKey) == 0)return null;
+      }
+      return newHashKey;
     }
 
     /**
@@ -220,29 +206,23 @@ public class RunBank{
       if(creditAccountNum.compareTo("0") != 0){
         creditBalance = checkData("credit balance");
         creditMax = checkData("credit max");
-        //System.out.println("yo");
-        //while(Double.parseDouble(creditMax) < Double.parseDouble(creditBalance))creditMax = checkData("creditMax");
+        while(Double.parseDouble(creditMax) < Double.parseDouble(creditBalance)){
+          creditMax = checkData("credit max");
+        }
       }
-      /*
-      System.out.println("**********************************");
-      System.out.println("firstname: " + firstName);
-      System.out.println("lastname: " + lastName);
-      System.out.println("date of birth: " + dateOfBirth);
-      System.out.println("email: " + email);
-      System.out.println("id: " + identification);
-      System.out.println("password: " + password);
-      System.out.println("address: " + address);
-      System.out.println("phone: " + phone);
-      System.out.println("checking account: " + checkingAccountNum);
-      System.out.println("savings account: " + savingsAccountNum);
-      System.out.println("credit account: " + creditAccountNum);
-      System.out.println("checking balance: " + checkingBalance);
-      System.out.println("savings balance: " + savingsBalance);
-      System.out.println("credit balance: " + creditBalance);
-      System.out.println("credit max: " + creditMax);
-      System.out.println("**********************************");
-      */
-      //addUser(database, firstName, lastName, dateOfBirth, identification, address, phone, checkingAccountNum, savingsAccountNum, creditAccountNum, checkingBalance, savingsBalance, creditBalance, creditMax);
+
+      String hashKey = collision(database, firstName, lastName);
+      if(hashKey != null){
+        Person person = new Customer(firstName, lastName, dateOfBirth, email, identification, password, address, phone);
+        Account checking = new Checking(Integer.parseInt(checkingAccountNum), Double.parseDouble(checkingBalance));
+        Account savings = new Savings(Integer.parseInt(savingsAccountNum), Double.parseDouble(savingsBalance));
+        Account credit = new Credit(Integer.parseInt(creditAccountNum), Double.parseDouble(creditBalance), Integer.parseInt(creditMax));
+        Bank newCustomer = new Bank(person, checking, savings, credit);
+        database.put(hashKey, newCustomer);
+        System.out.println("\nNew User added!\n");
+        return false;
+      }
+      System.out.println("\nUSER WITH NAME: " + firstName + " " + lastName + " ALREADY FOUND IN DATABASE\n");
       return false;
     }
 
@@ -831,6 +811,210 @@ public class RunBank{
       return false;
     }
 
+
+        /**
+         * transactionBuffer: Depending on what the header action request, the buffer
+         * will call different methods and complete the task.
+         * @param  db Bank: all users ()
+         * @param  sn String: Sender name
+         * @param  ss String: Sender source
+         * @param  a  String: Action
+         * @param  rn String: reciever name
+         * @param  rd String: receiver destination
+         * @param  sa String: sender amount
+         * @return    Boolean: transaction was complete? User found?
+         *
+         * IMPPORTANT:
+         * Test if the user that does not exists can still preform task
+         */
+        public static boolean transactionBuffer(HashMap<String, Bank> database, String sn, String ss, String a, String rn, String rd, String sa){
+          // checks if sender amound is a double
+          try{
+            Double.parseDouble(sa);
+          }catch(NumberFormatException NFE){
+            System.out.println("Not a number found!");
+            return false;
+          }
+          Bank senderName = database.get(sn.toLowerCase());
+          if(senderName == null && a.toLowerCase().compareTo("deposits") == 0){
+            senderName = database.get(rn.toLowerCase());
+            ss = "checking";
+          }
+          if(senderName == null)return false;
+          if(a.toLowerCase().compareTo("deposits") == 0){
+            if(deposit(senderName, true, ss, Double.parseDouble(sa)))return true;
+            return false;
+          }
+          if(a.toLowerCase().compareTo("withdraws") == 0){
+            if(withdraw(senderName, true, ss, Double.parseDouble(sa)))return true;
+            return false;
+          }
+          if(a.toLowerCase().compareTo("pays") == 0 || a.toLowerCase().compareTo("transfers") == 0){
+            Bank recieverName = database.get(rn.toLowerCase());
+            if(recieverName == null)return false;
+            if(transfer(senderName, database, true, sn, ss, recieverName, rd, Double.parseDouble(sa)))return true;
+            return false;
+          }
+          if(a.toLowerCase().compareTo("inquires") == 0){
+            if(inquireBalance(senderName, true, ss))return true;
+            return false;
+          }
+          return true;
+        }
+    /**
+     * Transaction: This method will get the array of strings that contain the
+     * header of the .txt file read. it will then look through the txt file to
+     * find the data that corresponds to it. It will then send that information
+     * to a buffer to be cpompleted. Prints out if action was completed or not
+     * @param  db       Bank: contains all users (link list)
+     * @param  fileName String: Name of file
+     * @return          Boolean: when all the tasks have been finished
+     */
+    public static boolean transactions(HashMap<String, Bank> database, String fileName){
+      // Header array
+      String transactionFields[] = fileFields(fileName);
+      // fields to look for
+      String senderName = "";
+      String senderSouce = "";
+      String action = "";
+      String recieverName = "";
+      String recieverDestination = "";
+      String senderAmount = "0";
+      int transactionDone = 1;
+
+      try{
+        // open file
+        File file = new File(fileName);
+        Scanner scnr = new Scanner(file);
+        String line = scnr.nextLine();
+        while(scnr.hasNextLine()){
+          line = scnr.nextLine();
+          String splitter[] = line.split("\t");
+          // looks for each field in the .txt file that corresponds to the header array
+          for(int i = 0; i < transactionFields.length; i++){
+            if(i < splitter.length){
+              if(transactionFields[i].toLowerCase().compareTo("from first name") == 0)senderName = splitter[i] + " ";
+              if(transactionFields[i].toLowerCase().compareTo("from last name") == 0)senderName += splitter[i];
+              if(transactionFields[i].toLowerCase().compareTo("from where") == 0)senderSouce = splitter[i];
+              if(transactionFields[i].toLowerCase().compareTo("action") == 0)action = splitter[i];
+              if(transactionFields[i].toLowerCase().compareTo("to first name") == 0)recieverName = splitter[i] + " ";
+              if(transactionFields[i].toLowerCase().compareTo("to last name") == 0)recieverName += splitter[i];
+              if(transactionFields[i].toLowerCase().compareTo("to where") == 0)recieverDestination = splitter[i];
+              if(transactionFields[i].toLowerCase().compareTo("action amount") == 0)senderAmount = splitter[i];
+            }
+          }
+          // transaction failed
+          if(!transactionBuffer(database, senderName, senderSouce, action, recieverName, recieverDestination, senderAmount)){
+            System.out.println(transactionDone + ": Transaction status: FAILED");
+            System.out.println(line + "\n");
+          }else{
+            // transaction completed
+            System.out.println(transactionDone + ": Transaction status: COMPLETE");
+          }
+          transactionDone++;
+        }
+        return true;
+      }catch(FileNotFoundException FNFE){
+        // file not found
+        System.out.println("Transaction File not found!");
+        return false;
+      }
+    }
+
+    /**
+     * makeStatement: asks manager to enter name of customer to make bank statment for
+     * repeats until we have found a customer
+     * @param db Bank: all users ()
+     */
+    public static void makeStatement(HashMap<String, Bank> database){
+      Scanner scnr = new Scanner(System.in);
+      System.out.println("Customer Name: ");
+      String managerUser = scnr.nextLine();
+      Bank userToStatement = database.get(managerUser.toLowerCase());
+      while(userToStatement == null){
+        System.out.print("Customer Name\n> ");
+        managerUser = scnr.nextLine();
+        userToStatement = database.get(managerUser);
+      }
+      BankStatements userStatement = new BankStatements(userToStatement);
+      userStatement.statement();
+    }
+
+    /**
+     * managerMenu: This method will display the manager menu. The manager
+     * will be able to see other users accounts
+     *
+     * @param database Bank:all users ()
+     * @return boolean: keep using program
+     */
+    public static boolean managerMenu(HashMap<String, Bank> database){
+        Scanner scnr = new Scanner(System.in);
+        boolean manager = true;
+        String log = "";
+
+        // keep going until manager does not want to uise account anymore
+        while(manager != false){
+            try{
+                // meun
+                System.out.println("Manager Menu");
+                System.out.println("1. Inquire User Account");
+                System.out.println("2. Inquire All Accounts");
+                System.out.println("3. Statements");
+                System.out.println("4. Logout");
+                System.out.println("5. Exit");
+
+                System.out.print("> ");
+                int userChoice = scnr.nextInt();
+                // Sees one user account
+                if(userChoice == 1){
+                    scnr = new Scanner(System.in);
+                    System.out.println("Enter Name of User");
+                    System.out.print("> ");
+                    String userName = scnr.nextLine();
+                    Bank userToInquire = database.get(userName.toLowerCase());
+                    if(userToInquire != null){
+                      log = "Manager inquired " + userToInquire.getPersonName() + " Account";
+                      manager = inquireBalance(userToInquire, false, "");
+                    }
+                }
+                // Sees all accounts
+                else if(userChoice == 2){
+                  log = getTime() + ": " + "Manager inquired all customers accounts!";
+                  for(String customer: database.keySet()){
+                    System.out.println();
+                    System.out.println("Customer Name: " + database.get(customer).getPersonName());
+                    System.out.println("Checking Account Number: " + database.get(customer).getCheckingAccountNumber());
+                    System.out.println("Savings Account Number: " + database.get(customer).getSavingsAccountNumber());
+                    System.out.println("Credit Account Number: " + database.get(customer).getCreditAccountNumber());
+                    System.out.println("Checking Balance: " + database.get(customer).getCheckingAccountNumber());
+                    System.out.println("Savings Balance: " + database.get(customer).getSavingsAccountNumber());
+                    System.out.println("Credit Balance: " + database.get(customer).getCreditAccountNumber());
+                    System.out.println();
+                  }
+                  //userLog(log);
+                }
+                // manager wants to make users statement
+                else if(userChoice == 3)makeStatement(database);
+                // manager wants to logout
+                else if(userChoice == 4)manager = false;
+                // manager cannot logout
+                else if(userChoice == 5){
+                  printUpdatedBank(database);
+                  System.exit(0);
+                }
+                else{
+                  // not a valid option
+                  System.out.println("Invalid User menu. Try Again");
+                }
+            }catch(InputMismatchException IME){
+              // manager enters values other than numbers
+              System.out.println("Please enter a valid menu option. [1 - 5]");
+              return managerMenu(database);
+            }
+        }
+        return false;
+    }
+
     /**
      * userLogin: This method wil find the user from the database and login
      * into their account, or their manager account.
@@ -872,20 +1056,19 @@ public class RunBank{
             // get transactions from file
             else if(loginName.toLowerCase().compareTo("transaction file") == 0){
               System.out.println("read transaction file");
-              //transactions(database, "Transaction Actions.txt");
+              transactions(database, "Transaction Actions.txt");
             }
             // login as manager
             else if(loginName.toLowerCase().compareTo("manager") == 0){
-              System.out.println("manager menu");
-              //login = managerMenu(database);
+              login = managerMenu(database);
             }
             else if(database.get(loginName) != null){
               while(attempts > 0){
                 if(userAndPasswordMatch(database.get(loginName))) return database.get(loginName);
+                System.out.println("User not found try again!");
                 attempts--;
               }
             }
-            System.out.println("Not Found!\nPlease try again!");
             attempts = 3;
         }
         // did not find the user account
@@ -1018,78 +1201,6 @@ public class RunBank{
     }
 
     /**
-     * transactionBuffer: Depending on what the header action request, the buffer
-     * will call different methods and complete the task.
-     * @param  db Bank: all users ()
-     * @param  sn String: Sender name
-     * @param  ss String: Sender source
-     * @param  a  String: Action
-     * @param  rn String: reciever name
-     * @param  rd String: receiver destination
-     * @param  sa String: sender amount
-     * @return    Boolean: transaction was complete? User found?
-     *
-     * IMPPORTANT:
-     * Test if the user that does not exists can still preform task
-     */
-     /*
-    public static boolean transactionBuffer(Bank db, String sn, String ss, String a, String rn, String rd, String sa){
-      try{
-        Double.parseDouble(sa);
-      }catch(NumberFormatException NFE){
-        System.out.println("Not a number found!");
-        return false;
-      }
-      // user logs in
-      Bank user = autoLogin(db, sn);
-      // if user was not found and we will preform a deposit action
-      if(a.toLowerCase().compareTo("deposits") == 0 && user == null){
-        // gets the reciever user
-        user = autoLogin(db, rn);
-        // default to checking
-        ss = "checking";
-      }
-      // user not found
-      if(user == null)return false;
-      // deposit into checking or saviongs account
-      if(a.toLowerCase().compareTo("deposits") == 0){
-        // deposits was successful
-        if(deposit(user, true, ss, Double.parseDouble(sa))){
-          return true;
-        }
-        return false;
-      }
-      // withdraw from checking or savings account
-      if(a.toLowerCase().compareTo("withdraws") == 0){
-        // withdraw was successful
-        if(withdraw(user, true, ss, Double.parseDouble(sa))){
-          return true;
-        }
-        return false;
-      }
-      // pays/transfers from accounts to self or others
-      if(a.toLowerCase().compareTo("pays") == 0 || a.toLowerCase().compareTo("transfers") == 0){
-        // gets other user name
-        Bank otherUser = autoLogin(db, rn);
-        // if the other user was not found
-        if(otherUser == null)return false;
-        // transfer action successful
-        if(transfer(user, db, true, sn, ss, otherUser, rd, Double.parseDouble(sa))){
-          return true;
-        }
-        return false;
-      }
-      // inquires balance of accounts
-      if(a.toLowerCase().compareTo("inquires") == 0){
-        // inquire balance successful
-        if(inquireBalance(user, true, ss))return true;
-        return false;
-      }
-      return true;
-    }
-    */
-
-    /**
      * autoLogin: Logs in into the requested user if found, otherwise it will not
      * @param  db          Bank: All users ()
      * @param  userToLogin String: user to be login
@@ -1107,67 +1218,6 @@ public class RunBank{
     }
     */
 
-    /**
-     * Transaction: This method will get the array of strings that contain the
-     * header of the .txt file read. it will then look through the txt file to
-     * find the data that corresponds to it. It will then send that information
-     * to a buffer to be cpompleted. Prints out if action was completed or not
-     * @param  db       Bank: contains all users (link list)
-     * @param  fileName String: Name of file
-     * @return          Boolean: when all the tasks have been finished
-     */
-    /*
-    public static boolean transactions(Bank db, String fileName){
-      // Header array
-      String transactionFields[] = fileFields(fileName);
-      // fields to look for
-      String senderName = "";
-      String senderSouce = "";
-      String action = "";
-      String recieverName = "";
-      String recieverDestination = "";
-      String senderAmount = "0";
-      int transactionDone = 2;
-
-      try{
-        // open file
-        File file = new File(fileName);
-        Scanner scnr = new Scanner(file);
-        String line = scnr.nextLine();
-        while(scnr.hasNextLine()){
-          line = scnr.nextLine();
-          String splitter[] = line.split("\t");
-          // looks for each field in the .txt file that corresponds to the header array
-          for(int i = 0; i < transactionFields.length; i++){
-            if(i < splitter.length){
-              if(transactionFields[i].toLowerCase().compareTo("from first name") == 0)senderName = splitter[i] + " ";
-              if(transactionFields[i].toLowerCase().compareTo("from last name") == 0)senderName += splitter[i];
-              if(transactionFields[i].toLowerCase().compareTo("from where") == 0)senderSouce = splitter[i];
-              if(transactionFields[i].toLowerCase().compareTo("action") == 0)action = splitter[i];
-              if(transactionFields[i].toLowerCase().compareTo("to first name") == 0)recieverName = splitter[i] + " ";
-              if(transactionFields[i].toLowerCase().compareTo("to last name") == 0)recieverName += splitter[i];
-              if(transactionFields[i].toLowerCase().compareTo("to where") == 0)recieverDestination = splitter[i];
-              if(transactionFields[i].toLowerCase().compareTo("action amount") == 0)senderAmount = splitter[i];
-            }
-          }
-          // transaction failed
-          if(!transactionBuffer(db, senderName, senderSouce, action, recieverName, recieverDestination, senderAmount)){
-            System.out.println(transactionDone + ": Transaction status: FAILED");
-            System.out.println(line + "\n");
-          }else{
-            // transaction completed
-            System.out.println(transactionDone + ": Transaction status: COMPLETE");
-          }
-          transactionDone++;
-        }
-        return true;
-      }catch(FileNotFoundException FNFE){
-        // file not found
-        System.out.println("Transaction File not found!");
-        return false;
-      }
-    }
-    */
 
     /**
      * fileFields: will open a file and look for its header located
@@ -1285,110 +1335,6 @@ public class RunBank{
     }
     */
 
-    /**
-     * managerMenu: This method will display the manager menu. The manager
-     * will be able to see other users accounts
-     *
-     * @param database Bank:all users ()
-     * @return boolean: keep using program
-     */
-     /*
-    public static boolean managerMenu(Bank database){
-        Scanner scnr = new Scanner(System.in);
-        boolean manager = true;
-        String log = "";
-
-        // keep going until manager does not want to uise account anymore
-        while(manager != false){
-            try{
-                // meun
-                System.out.println("Manager Menu");
-                System.out.println("1. Inquire User Account");
-                System.out.println("2. Inquire All Accounts");
-                System.out.println("3. Statements");
-                System.out.println("4. Logout");
-                System.out.println("5. Exit");
-
-
-                System.out.print("> ");
-                int userChoice = scnr.nextInt();
-                // Sees one oser account
-                if(userChoice == 1){
-                    scnr = new Scanner(System.in);
-                    System.out.println("Enter Name of User");
-                    System.out.print("> ");
-                    String userName = scnr.nextLine();
-                    Bank tempDB = database;
-
-                    while(tempDB != null){
-                        if(tempDB.getPersonName().compareTo(userName) == 0){
-                            // Manager log
-                            log = "Manager inquired " + tempDB.getPersonName() + " Account";
-                            userAction(log);
-                            // record
-                            manager = inquireBalance(tempDB, false, "");
-                        }
-                        tempDB = tempDB.next;
-                    }
-                }
-                // Sees all accounts
-                else if(userChoice == 2){
-                    Bank tempDB = database;
-                    // manager log
-                    log = getTime() + ": " + "Manager inquired all customers accounts!";
-                    while(tempDB != null){
-                        System.out.println();
-                        System.out.println("Customer Name: " + tempDB.getPersonName());
-                        System.out.println("Checking Account: " + tempDB.getCheckingAccountNumber() + " Checking Balance: " + tempDB.getCheckingBalance());
-                        System.out.println("Savings Account: " + tempDB.getCheckingAccountNumber() + " Savings Balance: " + tempDB.getSavingsBalance());
-                        System.out.println("Credit Account: " + tempDB.getCreditAccountNumber() + " Credit Balance: " + tempDB.getCreditBalance());
-                        System.out.println();
-                        tempDB = tempDB.next;
-                    }
-                    userAction(log);
-                }
-                // manager wants to make users statement
-                else if(userChoice == 3)makeStatement(database);
-                // manager wants to logout
-                else if(userChoice == 4)manager = false;
-                // manager cannot logout
-                else if(userChoice == 5){
-                  printUpdatedBank(database);
-                  System.exit(0);
-                }
-                else{
-                  // not a valid option
-                  System.out.println("Invalid User menu. Try Again");
-                }
-            }catch(InputMismatchException IME){
-              // manager enters values other than numbers
-              System.out.println("Please enter a valid menu option. [1 - 5]");
-              return managerMenu(database);
-            }
-        }
-        return false;
-    }
-*/
-    /**
-     * makeStatement: asks manager to enter name of customer to make bank statment for
-     * repeats until we have found a customer
-     * @param db Bank: all users ()
-     */
-     /*
-    public static void makeStatement(Bank db){
-      Scanner scnr = new Scanner(System.in);
-      System.out.print("Customer Name\n> ");
-      String managerUser = scnr.nextLine();
-      Bank userToStatement = autoLogin(db, managerUser);
-      while(userToStatement == null){
-        System.out.print("Customer Name\n> ");
-        managerUser = scnr.nextLine();
-        userToStatement = autoLogin(db, managerUser);
-      }
-      BankStatements userStatement = new BankStatements(userToStatement);
-      userStatement.statement();
-    }
-    */
 
 
     /**
