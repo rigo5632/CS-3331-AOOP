@@ -28,42 +28,48 @@ abstract class Person{
 
 
     /**
-     * Retrieve users full name
-     * @return String
+     * getFullName: Retrieve users full name
+     * @return String: full name
      */
     public String getFullName(){
         return this.firstName + " " + this.lastName;
     }
 
+    /**
+     * getFirstName: gets first name
+     * @return String: first name
+     */
     public String getFirstName(){
       return this.firstName;
     }
 
+    /**
+     * getLastName: gets last name
+     * @return StringL last name
+     */
     public String getLastName(){
       return this.lastName;
     }
 
     /**
-     * Retrieve users date of birth
-     * @return String
+     * getDateOfBirth: Retrieve users date of birth
+     * @return String: date of birth
      */
     public String getDateOfBirth(){
         return this.dateOfBith;
     }
 
-
     /**
-     * Retrieve users id
-     * @return String
+     * getID: Retrieve users id
+     * @return String: id
      */
     public String getID(){
         return this.identificationNumber;
     }
 
-
     /**
-     * Retrieve users address
-     * @return String
+     * getAddress: Retrieve users address
+     * @return String: address
      */
     public String getAddress(){
         return this.Address;
@@ -71,8 +77,8 @@ abstract class Person{
 
 
     /**
-     * Retrieve users phone number
-     * @return String
+     * getPhoneNumber: Retrieve users phone number
+     * @return String: phone number
      */
     public String getPhoneNumber(){
         return this.phoneNumer;

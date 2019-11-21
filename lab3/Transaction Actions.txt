@@ -1,7 +1,7 @@
 From First Name	From Last Name	From Where	Action	To First Name	To Last Name	To Where	Action Amount
 Mickey	Mouse	Checking	pays	Donald	Duck	Checking	100
 Mickey	Mouse	Savings	transfers	Mickey	Mouse	Checking	400
-Mickey	Mouse	Savings	inquires
+Mickey	Mouse	Savings	inquires				
 Mickey	Mouse	Checking	withdraws				100
 			deposits	Mickey	Mouse	Savings	500
 Mickey	Mouse	Savings	transfers	Mickey	Mouse	Credit	300
@@ -55,7 +55,7 @@ Joshua	Ramos	Checking	pays	Daniel	Mejia	Checking	1000
 Lewis	Roe	Checking	pays	Daniel	Mejia	Checking	1000
 Laila	Romero	Checking	pays	Daniel	Mejia	Checking	1000
 Paola	Terrazas	Checking	pays	Daniel	Mejia	Checking	1000
-Daniel	Mejia	Checking	inquires
+Daniel	Mejia	Checking	inquires				
 Mickey	Mouse	Savings	withdraws			Savings	64
 Donald	Duck	Checking	pays	Sean	Aguilar	Checking	38.33
 Minnie	Mouse	Savings	withdraws			Savings	69

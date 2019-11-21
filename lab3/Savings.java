@@ -14,11 +14,11 @@ public class Savings extends Account{
 
 
     /**
-     * This Method overides the funtionality of withdraw
+     * withdraw: This Method overides the funtionality of withdraw
      * method in account class. User will not be able to withdraw
      * money from their savings account
-     * @param amount
-     * @return boolean
+     * @param amount double: how much to withdraw
+     * @return boolean: succesful
      */
     @Override
     public boolean withdraw(double amount){
@@ -41,19 +41,23 @@ public class Savings extends Account{
       return true;
     }
 
+    /**
+     * getMax: gets max. only works in credit account
+     * @return double: feature not avaiable
+     */
     @Override
-    public int getMax(){
+    public double getMax(){
       return -1;
     }
 
 
     /**
-     * This method will override the transfer method in account class.
+     * transfer: This method will override the transfer method in account class.
      * Will transfer money to the transfer account the user selected
      *
-     * @param transferAccount
-     * @param amount
-     * @return boolean
+     * @param transferAccount Account: other user account
+     * @param amount Double: how much to transfer
+     * @return boolean: succesful
      */
     @Override
     public boolean transfer(Account transferAccount, double amount){

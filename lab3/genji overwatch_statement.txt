@@ -1,0 +1,29 @@
+Customer Information
+-----------------------------------------------------
+Full Name:     genji overwatch
+Date of Birth: 10/10/1223
+ID Number:     76
+Address:       702 overatch drive
+Phone Number:  (915)1238655
+-----------------------------------------------------
+Account Information
+-----------------------------------------------------
+Checking Account Number: 100000
+Savings Account Number: 1000001
+Credit Account Number: 1000002
+-----------------------------------------------------
+Checking Starting Balance: $10.0
+Savings Starting Balance:  $102.0
+Transactions:
+-----------------------------------------------------
+01:29:57: genji overwatch inquire All Accounts Balance 
+01:30:02: genji overwatch made a deposit in Checkings Account of $50.0 100000 Cuurent Balance: $60.0
+01:30:06: genji overwatch made a deposit in Checkings Account of $10000.0 100000 Cuurent Balance: $10060.0
+01:30:10: genji overwatch made a deposit int Savings Account of $5000.0 1000001 Cuurent Balance: $5102.0
+01:30:14: genji overwatch made a withdraw in Checkings account of $100.0 100000 Current Balance: $9960.0
+01:30:26: genji overwatch transfered money from checkings to credit. Checking: $9960.0 Credit: $-80.0
+01:30:39: genji overwatch made a transfer of $400.0 to Rigoberto Quiroz
+-----------------------------------------------------
+Checking Ending Balance: $9560.0
+Savings Ending Balance:  $5102.0
+Credit Ending Balance:  $-80.0

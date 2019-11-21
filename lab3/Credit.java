@@ -12,14 +12,18 @@ public class Credit extends Account{
         this.account_credit_max = creditMax;
     }
 
-    public int getMax(){
+    /**
+     * getMax: gets credit limit
+     * @return double: credit max
+     */
+    public double getMax(){
       return this.account_credit_max;
     }
 
     /**
-     * In credit account, the user is not able to make a deposit
-     * @param amount
-     * @return boolean
+     * deposit: In credit account, the user is not able to make a deposit
+     * @param amount double: how much to deposit
+     * @return boolean: succesful
      */
     @Override
     public boolean deposit(double amount){
@@ -27,11 +31,10 @@ public class Credit extends Account{
         return false;
     }
 
-
     /**
-     * In credit account, the user is not able to make a withdraw
-     * @param amount
-     * @return boolean
+     * withdraw: In credit account, the user is not able to make a withdraw
+     * @param amount double: how much to withdraw
+     * @return boolean: succesful
      */
     @Override
     public boolean withdraw(double amount){
@@ -39,13 +42,12 @@ public class Credit extends Account{
         return false;
     }
 
-
     /**
-     * The user will be able to transfer money into the credit account
+     * transfer: The user will be able to transfer money into the credit account
      * to pay their debt.
-     * @param creditAccount
-     * @param amount
-     * @return boolean
+     * @param creditAccount Account: other user account
+     * @param amount double: amount to transfer
+     * @return boolean: succesful
      */
     @Override
     public boolean transfer(Account creditAccount, double amount){

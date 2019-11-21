@@ -2,20 +2,18 @@ public class Checking extends Account{
 
     /**
      * Constructor
-     * @param accNum
-     * @param b
-     * @return
+     * @param accNum int: account number
+     * @param b double: balance amount
      */
     public Checking(int accNum, double b){
         super(accNum, b);
     }
 
-
     /**
-     * Overides the withdraw method. User is able
+     * withdraw: Overides the withdraw method. User is able
      * to take money from the checking account.
-     * @param amount
-     * @return boolean
+     * @param amount double: how much to withdraw
+     * @return boolean: succesful
      */
     @Override
     public boolean withdraw(double amount){
@@ -38,18 +36,22 @@ public class Checking extends Account{
         return true;
     }
 
+    /**
+     * getMax: get Checking max. only works with credit account
+     * @return double: no feature avaiable
+     */
     @Override
-    public int getMax(){
+    public double getMax(){
       return -1;
     }
 
 
     /**
-     * Overrides the transfer method. This method will allow the user
+     * transfer: Overrides the transfer method. This method will allow the user
      * to transfer money from within their account or to other accounts
-     * @param transferAccount
-     * @param amount
-     * @return boolean
+     * @param transferAccount Account: other user accounts
+     * @param amount double: how much to transfer
+     * @return boolean: succesful
      */
     @Override
     public boolean transfer(Account transferAccount, double amount){

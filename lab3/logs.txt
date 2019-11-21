@@ -1,0 +1,111 @@
+01:29:57: genji overwatch inquire All Accounts Balance 
+01:30:02: genji overwatch made a deposit in Checkings Account of $50.0 100000 Cuurent Balance: $60.0
+01:30:06: genji overwatch made a deposit in Checkings Account of $10000.0 100000 Cuurent Balance: $10060.0
+01:30:10: genji overwatch made a deposit int Savings Account of $5000.0 1000001 Cuurent Balance: $5102.0
+01:30:14: genji overwatch made a withdraw in Checkings account of $100.0 100000 Current Balance: $9960.0
+01:30:26: genji overwatch transfered money from checkings to credit. Checking: $9960.0 Credit: $-80.0
+01:30:39: genji overwatch made a transfer of $400.0 to Rigoberto Quiroz
+01:30:47: Mickey Mouse made a transfer of $100.0 to Donald Duck
+01:30:47: Mickey Mouse inquire Savings Balance 2000: $167.94
+01:30:47: Mickey Mouse made a withdraw in Checkings account of $100.0 1000 Current Balance: $1785.16
+01:30:47: Mickey Mouse made a deposit in Checkings Account of $500.0 1000 Curent Balance: $2285.16
+01:30:47: Sean Aguilar made a deposit in Checkings Account of $5000.0 1036 Curent Balance: $9045.130000000001
+01:30:47: Aaron Alarcon made a deposit in Checkings Account of $5000.0 1037 Curent Balance: $10528.880000000001
+01:30:47: Bryant Allsup made a deposit in Checkings Account of $5000.0 1038 Curent Balance: $9403.83
+01:30:47: Nathan Aun made a deposit in Checkings Account of $5000.0 1039 Curent Balance: $9713.9
+01:30:47: William Basquez made a deposit in Checkings Account of $5000.0 1040 Curent Balance: $9148.23
+01:30:47: Fabian Cano made a deposit in Checkings Account of $5000.0 1041 Curent Balance: $9149.29
+01:30:47: Denise Castro made a deposit in Checkings Account of $5000.0 1042 Curent Balance: $10410.18
+01:30:47: Karla Chavez made a deposit in Checkings Account of $5000.0 1043 Curent Balance: $10382.4
+01:30:47: Solomon Davis made a deposit in Checkings Account of $5000.0 1044 Curent Balance: $9389.95
+01:30:47: Hugo Dominguez made a deposit in Checkings Account of $5000.0 1045 Curent Balance: $10002.599999999999
+01:30:47: Seth Flores made a deposit in Checkings Account of $5000.0 1046 Curent Balance: $10232.15
+01:30:47: Anthony Herrera made a deposit in Checkings Account of $5000.0 1047 Curent Balance: $10562.19
+01:30:47: Juan Isasi made a deposit in Checkings Account of $5000.0 1048 Curent Balance: $9263.09
+01:30:47: Valeria Macias made a deposit in Checkings Account of $5000.0 1049 Curent Balance: $9702.55
+01:30:47: Ana Mata Sanchez made a deposit in Checkings Account of $5000.0 1050 Curent Balance: $10657.509999999998
+01:30:47: Bryan Molina made a deposit in Checkings Account of $5000.0 1051 Curent Balance: $9612.33
+01:30:47: Ericka Najera made a deposit in Checkings Account of $5000.0 1052 Curent Balance: $9765.86
+01:30:47: Cesar Padron made a deposit in Checkings Account of $5000.0 1053 Curent Balance: $9222.380000000001
+01:30:47: Ricardo Pena made a deposit in Checkings Account of $5000.0 1054 Curent Balance: $9117.95
+01:30:47: Rigoberto Quiroz made a deposit in Checkings Account of $5000.0 1055 Curent Balance: $10415.36
+01:30:47: Kevin Ramirez made a deposit in Checkings Account of $5000.0 1056 Curent Balance: $9902.560000000001
+01:30:47: Joshua Ramos made a deposit in Checkings Account of $5000.0 1057 Curent Balance: $9974.16
+01:30:47: Lewis Roe made a deposit in Checkings Account of $5000.0 1058 Curent Balance: $11025.009999999998
+01:30:47: Laila Romero made a deposit in Checkings Account of $5000.0 1059 Curent Balance: $9339.89
+01:30:47: Paola Terrazas made a deposit in Checkings Account of $5000.0 1060 Curent Balance: $10938.26
+01:30:47: Sean Aguilar made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Aaron Alarcon made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Bryant Allsup made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Nathan Aun made a transfer of $1000.0 to Daniel Mejia
+01:30:47: William Basquez made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Fabian Cano made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Denise Castro made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Karla Chavez made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Solomon Davis made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Hugo Dominguez made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Seth Flores made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Anthony Herrera made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Juan Isasi made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Valeria Macias made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Ana Mata Sanchez made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Bryan Molina made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Ericka Najera made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Cesar Padron made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Ricardo Pena made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Rigoberto Quiroz made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Kevin Ramirez made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Joshua Ramos made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Lewis Roe made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Laila Romero made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Paola Terrazas made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Daniel Mejia inquire Checking Balance 1061: $51907.44
+01:30:47: Mickey Mouse made a withdraw in Savings account of $64.0 2000 Current Balance: $103.94
+01:30:47: Donald Duck made a transfer of $38.33 to Sean Aguilar
+01:30:47: Minnie Mouse made a withdraw in Savings account of $69.0 2002 Current Balance: $4262.39
+01:30:47: Goofy Disney made a transfer of $21.95 to Aaron Alarcon
+01:30:47: Pluto Disney made a withdraw in Savings account of $99.0 2004 Current Balance: $2582.81
+01:30:48: Dale Disney made a withdraw in Savings account of $71.0 2006 Current Balance: $1919.71
+01:30:48: Cinderella Disney made a transfer of $20.34 to Nathan Aun
+01:30:48: Ariel Disney made a withdraw in Savings account of $90.0 2008 Current Balance: $104.88
+01:30:48: Jasmine Disney made a transfer of $43.73 to William Basquez
+01:30:48: Aladdin Disney made a withdraw in Savings account of $66.0 2010 Current Balance: $4540.94
+01:30:48: Simba Disney made a transfer of $50.0 to Fabian Cano
+01:30:48: Mufassa Disney made a withdraw in Savings account of $90.0 2012 Current Balance: $4794.39
+01:30:48: Aurora Disney made a transfer of $24.45 to Denise Castro
+01:30:48: Peter Pan made a withdraw in Savings account of $77.0 2014 Current Balance: $4167.13
+01:30:48: Woody Disney made a transfer of $33.23 to Karla Chavez
+01:30:48: Buzz Lightyear made a withdraw in Savings account of $79.0 2016 Current Balance: $2054.98
+01:30:48: Jafar Aladdin made a transfer of $37.95 to Solomon Davis
+01:30:48: Ursela Mermaid made a withdraw in Savings account of $62.0 2018 Current Balance: $2431.23
+01:30:48: Beast Disney made a transfer of $11.62 to Hugo Dominguez
+01:30:48: Belle Disney made a withdraw in Savings account of $77.0 2020 Current Balance: $4677.45
+01:30:48: Cruella De Vil made a transfer of $31.95 to Seth Flores
+01:30:48: Scar Lion made a withdraw in Savings account of $96.0 2022 Current Balance: $1896.67
+01:30:48: Simba King made a transfer of $50.35 to Anthony Herrera
+01:30:48: Gaston Disney made a withdraw in Savings account of $80.0 2024 Current Balance: $849.6099999999999
+01:30:48: Shere Khan made a transfer of $18.41 to Juan Isasi
+01:30:48: Captaiin Hook made a withdraw in Savings account of $77.0 2026 Current Balance: $2796.07
+01:30:48: Kaa Disney made a transfer of $42.6 to Valeria Macias
+01:30:48: Evil Queen made a withdraw in Savings account of $60.0 2028 Current Balance: $2700.65
+01:30:48: Pinocchio Disney made a transfer of $37.11 to Ana Mata Sanchez
+01:30:48: Prince Eric made a withdraw in Savings account of $95.0 2030 Current Balance: $2194.61
+01:30:48: Quasimodo Disney made a transfer of $50.4 to Bryan Molina
+01:30:48: Hercules Disney made a withdraw in Savings account of $86.0 2032 Current Balance: $4802.93
+01:30:48: Mulan Disney made a transfer of $28.85 to Ericka Najera
+01:30:48: Lilo Disney made a withdraw in Savings account of $82.0 2034 Current Balance: $470.13
+01:30:48: Stitch Disney made a transfer of $33.78 to Cesar Padron
+01:30:48: Gaston Disney made a withdraw in Savings account of $77.0 2024 Current Balance: $772.6099999999999
+01:30:48: Mickey Mouse made a transfer of $33.53 to Ricardo Pena
+01:30:48: Donald Duck made a withdraw in Savings account of $58.0 2001 Current Balance: $4091.45
+01:30:48: Minnie Mouse made a transfer of $47.19 to Rigoberto Quiroz
+01:30:48: Goofy Disney made a withdraw in Savings account of $87.0 2003 Current Balance: $2740.44
+01:30:48: Pluto Disney made a transfer of $14.37 to Kevin Ramirez
+01:30:48: Chip Disney made a withdraw in Savings account of $100.0 2005 Current Balance: $410.02
+01:30:48: Dale Disney made a transfer of $14.46 to Joshua Ramos
+01:30:48: Cinderella Disney made a withdraw in Savings account of $50.0 2007 Current Balance: $2707.76
+01:30:48: Ariel Disney made a transfer of $40.11 to Lewis Roe
+01:30:48: Jasmine Disney made a withdraw in Savings account of $87.0 2009 Current Balance: $6.930000000000007
+01:30:48: Aladdin Disney made a transfer of $33.28 to Laila Romero
+01:30:48: Simba Disney made a withdraw in Savings account of $54.0 2011 Current Balance: $4566.05
+01:30:48: Mufassa Disney made a transfer of $44.76 to Paola Terrazas

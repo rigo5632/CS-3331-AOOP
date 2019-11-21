@@ -1,0 +1,24 @@
+Customer Information
+-----------------------------------------------------
+Full Name:     Lilo Disney
+Date of Birth: "May 21, 2007"
+ID Number:     35
+Address:       "1313 Disneyland Dr, Anaheim, CA 92802"
+Phone Number:  (714) 781-4636
+-----------------------------------------------------
+Account Information
+-----------------------------------------------------
+Checking Account Number: 1034
+Savings Account Number: 2034
+Credit Account Number: 3034
+-----------------------------------------------------
+Checking Starting Balance: $978.95
+Savings Starting Balance:  $634.13
+Transactions:
+-----------------------------------------------------
+01:28:45: Lilo Disney made a withdraw in Savings account of $82.0 2034 Current Balance: $552.13
+01:30:48: Lilo Disney made a withdraw in Savings account of $82.0 2034 Current Balance: $470.13
+-----------------------------------------------------
+Checking Ending Balance: $978.95
+Savings Ending Balance:  $470.13
+Credit Ending Balance:  $-1855.23

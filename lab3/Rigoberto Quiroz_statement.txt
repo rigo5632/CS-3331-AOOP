@@ -1,0 +1,26 @@
+Customer Information
+-----------------------------------------------------
+Full Name:     Rigoberto Quiroz
+Date of Birth: "March 12, 1935"
+ID Number:     56
+Address:       "500 W. University Ave, El Paso, TX 79968"
+Phone Number:  (915) 747-5000
+-----------------------------------------------------
+Account Information
+-----------------------------------------------------
+Checking Account Number: 1055
+Savings Account Number: 2055
+Credit Account Number: 3055
+-----------------------------------------------------
+Checking Starting Balance: $968.17
+Savings Starting Balance:  $4008.08
+Transactions:
+-----------------------------------------------------
+01:28:45: Rigoberto Quiroz made a deposit in Checkings Account of $5000.0 1055 Curent Balance: $5968.17
+01:28:45: Rigoberto Quiroz made a transfer of $1000.0 to Daniel Mejia
+01:30:47: Rigoberto Quiroz made a deposit in Checkings Account of $5000.0 1055 Curent Balance: $10415.36
+01:30:47: Rigoberto Quiroz made a transfer of $1000.0 to Daniel Mejia
+-----------------------------------------------------
+Checking Ending Balance: $9462.550000000001
+Savings Ending Balance:  $4008.08
+Credit Ending Balance:  $-599.05
