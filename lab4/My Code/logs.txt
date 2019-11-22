@@ -1,2 +1,0 @@
-02:42:37: Mickey Mouse inquire All Accounts Balance 
-02:42:49: Mickey Mouse inquire Checking Balance 1000: $1895.14
