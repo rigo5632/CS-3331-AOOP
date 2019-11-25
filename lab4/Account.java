@@ -44,7 +44,7 @@ abstract class Account{
 
     /**
      * getBalance: This method will allow you to retrieve the private balance
-     * @return double: retuns current balance
+     * @return double: returns current balance
      */
     public double getBalance(){
         return this.balance;
@@ -53,31 +53,54 @@ abstract class Account{
      * withdraw: abstract withdraw method, allows customer to witdraw from their
      * accounts
      * @param  amount double: how much to withdraw
-     * @return        boolean: succesful
+     * @return        boolean: successful
      */
-    public abstract boolean withdraw(double amount);
+    public boolean withdraw(double amount){
+        // if balance of checking is less than or equal than 0
+        if(this.balance <= 0){
+            System.out.println("\n********************");
+            System.out.println("Please Deposit");
+            System.out.println("********************\n");
+            return false;
+        }
+        //amount is less than or greater than the current balance the user has
+        if(amount < 0 || amount >= this.balance){
+            System.out.println("\n********************");
+            System.out.println("Please enter a correct amount");
+            System.out.println("********************\n");
+            return false;
+        }
+        // updates the balance
+        updateBalance(this.balance -amount);
+        return true;
+      }
 
     /**
-     * getMax: gets the credit max
-     * @return double: credit max value
-     */
-    public abstract double getMax();
-
-    /**
-     * transfer: Abstract transfer method. Since not all accounts will be able
+     * transfer: method. Since not all accounts will be able
      * to transfer (credit). This method can be abstract and override
      * it to no do nothing in certain circumstances
      * @param transferAccount Account: other user account
      * @param amount double: how much to transfer
-     * @return boolean: succesful
+     * @return boolean: successful
      */
-    public abstract boolean transfer(Account transferAccount, double amount);
-
+    public boolean transfer(Account transferAccount, double amount){
+        // checks if the amount is lesss than 0 or greater than the balance the user currently has
+        if(amount < 0 || amount > this.balance){
+            System.out.println("\n********************");
+            System.out.println("Please enter a correct amount");
+            System.out.println("********************\n");
+            return false;
+        }
+        // makes update
+        updateBalance(this.balance - amount);
+        transferAccount.updateBalance(transferAccount.getBalance() + amount);
+        return true;
+    }
 
     /**
      * deposit: This method will allow the user to make a deposit to all their accounts
      * @param amount double: how much to deposit
-     * @return boolean: succesful
+     * @return boolean: successful
      */
     public boolean deposit(double amount){
         // checks if amount is negative
