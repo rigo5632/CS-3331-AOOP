@@ -1,28 +1,13 @@
 /*******************************************************************************
-    Author: Rigoberto Quiroz
-    Alias: Rigo
-    Date: 11/07/19
+    Author: Rigoberto Quiroz, Denise Castro
+    Alias: Rigo, Watch12
+    Date: 11/26/19
     Course: CS3331
     Lab: Programming Assignment 4
     Lab Description:
-      Since we have the base of our bank from our preveious lab (lab2). For this
-      lab we have to refactor our code to have extra features. Some of the new
-      features are adding new users, handling users with the same name, read
-      transaction from transaction file, new class implementation BankStatements,
-      and allow manager to create BankStatements for users.
-        -new users:
-          new users must have a first name, last name, date of birth, address,
-          phoneNumber, and at least a savings account
-        -names:
-          customers with the same name should not appear in our database
-        - transaction file
-          program should be able to read from a transaction file and execute the
-          task it has. As well as printing out errors if they might happen
-        -BankStatements:
-          Should get any users and only print out what they have done while
-          logged in with time stamps
-        -Manager feature
-          Manager should be able to make bank statements for users
+      Since we have the base of our bank from our preveious lab (lab3). For this
+      lab we have to refactor our code to our partners code. The only new feature
+       is the login function that checks the customers name with a pasword. 
     Honesty Statement:
         I confirm that the work of this assignment is completely my own.
         By turning in this assignment. I declare that I did not receive
@@ -30,7 +15,7 @@
         but not limited to the source code, lab report and output files were
         written and produced by me alone.
     Assumptions:
-      1. manager should be the only one that should print BankStatements
+      1. manager should be the only one that should print BankStatements or create new users
       2. people can have same last or first name but not both
 *******************************************************************************/
 
@@ -38,8 +23,12 @@
 // libaries
 import java.util.Scanner;
 import java.util.InputMismatchException;
-import java.io.*;
-import java.text.DecimalFormat;
+import java.util.NoSuchElementException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -57,8 +46,8 @@ public class RunBank{
         }
         String fields[] = fileFields("Bank Users4.txt");
         // stores customers in a hash map
-        HashMap<String, Bank> database = createBank(fields);
-        Bank user = userLogin(database);
+        HashMap<String, Customer> database = createBank(fields);
+        Customer user = userLogin(database);
         if(user == null)System.exit(0);
         createLogFile();
         boolean keepGoing = userMenu(user, database);
@@ -156,7 +145,7 @@ public class RunBank{
      return null;
     }
 
-    /**TAKEN FROM DENNIS
+    /**TAKEN FROM DENISE
      * collision: This method will check if new users do not use the same key. if
      * they have the same key then they are already in the database
      * @param  database  HashMap: All users
@@ -164,7 +153,7 @@ public class RunBank{
      * @param  lastName  String: new users name
      * @return           String: new hash map insert key
      */
-    public static String collision(HashMap<String, Bank> database, String firstName, String lastName){
+    public static String collision(HashMap<String, Customer> database, String firstName, String lastName){
       String newHashKey = firstName + " " + lastName;
       newHashKey = newHashKey.toLowerCase();
 
@@ -180,7 +169,7 @@ public class RunBank{
      * @param  database hashMap: all users
      * @return          boolean: user added
      */
-    public static boolean createUser(HashMap<String, Bank> database){
+    public static boolean createUser(HashMap<String, Customer> database){
       // all fields that a new user will need
       String firstName = "";
       String lastName = "";
@@ -226,10 +215,10 @@ public class RunBank{
       // add new user
       if(hashKey != null){
         Person person = new Customer(firstName, lastName, dateOfBirth, email, identification, password, address, phone);
-        Account checking = new Checking(Integer.parseInt(checkingAccountNum), Double.parseDouble(checkingBalance));
-        Account savings = new Savings(Integer.parseInt(savingsAccountNum), Double.parseDouble(savingsBalance));
-        Account credit = new Credit(Integer.parseInt(creditAccountNum), Double.parseDouble(creditBalance), Integer.parseInt(creditMax));
-        Bank newCustomer = new Bank(person, checking, savings, credit);
+        Checking checking = new Checking(Integer.parseInt(checkingAccountNum), Double.parseDouble(checkingBalance));
+        Savings savings = new Savings(Integer.parseInt(savingsAccountNum), Double.parseDouble(savingsBalance));
+        Credit credit = new Credit(Integer.parseInt(creditAccountNum), Double.parseDouble(creditBalance), Integer.parseInt(creditMax));
+        Customer newCustomer = new Customer(person, checking, savings, credit);
         database.put(hashKey, newCustomer);
         System.out.println("\nNew User added!\n");
         return false;
@@ -238,14 +227,14 @@ public class RunBank{
       return false;
     }
 
-    /**
-     * printUpdatedBank: This method will be accesed once the user decides to
+    /**Taken from Rigoberto
+     * printUpdatedBank: This method will be accessed once the user decides to
      * terminate the program (not when they decide to log out).
      * Record all the new accounts in Bank Users Updated.txt file.
      *
      * @param database Bank: all users
      */
-    public static void printUpdatedBank(HashMap<String, Bank> database){
+    public static void printUpdatedBank(HashMap<String, Customer> database){
         try{
             // name of file
             File file = new File("Bank Users Updated.txt");
@@ -261,12 +250,12 @@ public class RunBank{
               update.print(database.get(customerName).getPersonPassword() + "\t");
               update.print(database.get(customerName).getPersonAddress() + "\t");
               update.print(database.get(customerName).getPersonPhoneNumber() + "\t");
-              update.print(database.get(customerName).getCheckingAccountNumber() + "\t");
-              update.print(database.get(customerName).getSavingsAccountNumber() + "\t");
-              update.print(database.get(customerName).getCreditAccountNumber() + "\t");
-              update.print(database.get(customerName).getCheckingBalance() + "\t");
-              update.print(database.get(customerName).getSavingsBalance() + "\t");
-              update.print(database.get(customerName).getCreditBalance() + "\t");
+              update.print(database.get(customerName).getChecking().getAccountNumber() + "\t");
+              update.print(database.get(customerName).getSavings().getAccountNumber() + "\t");
+              update.print(database.get(customerName).getCredit().getAccountNumber() + "\t");
+              update.print(database.get(customerName).getChecking().getBalance() + "\t");
+              update.print(database.get(customerName).getSavings().getBalance() + "\t");
+              update.print(database.get(customerName).getCredit().getBalance() + "\t");
               update.print(database.get(customerName).getMax() + "\n");
             }
             update.close();
@@ -275,8 +264,8 @@ public class RunBank{
             System.exit(0);
         }
     }
-
-    /**
+    
+    /**Taken from Rigoberto, Modified by Denise
     * transfer: This method will make a transfer. The user will be able
     * to transfer money from their account or to other customers accounts.
     * The user can choose to which account they want to transfer to
@@ -285,99 +274,60 @@ public class RunBank{
     * @param  isTransactionFile   boolean: using transaction file
     * @param  senderName          String: sender name
     * @param  senderSource        String: sender source
-    * @param  recieverName        String: reciever name
+    * @param  recieverName        String: receiver name
     * @param  recieverDestination String: recieverDestination
     * @param  amount              String: how much to transfer
-    * @return                     boolean: succesful
+    * @return                     boolean: successful
     */
-    public static boolean transfer(Bank user, HashMap<String, Bank> database, boolean isTransactionFile, String senderName, String senderSource, Bank recieverName, String recieverDestination, double amount){
+    public static boolean transfer(Customer user, HashMap<String, Customer> database, boolean isTransactionFile, String senderName, String senderSource, Customer recieverName, String recieverDestination, double amount){
         boolean transfer = true;
         String log = "";
-
+        Account tempAccount = null;
+        String type = "";
+        String type2 = "";
+        Account recieverAccount = null;
         // using transaction file
         if(isTransactionFile){
-          // transfering from checking to checking
-          if((senderSource.toLowerCase().compareTo("checking") == 0) && (recieverDestination.toLowerCase().compareTo("checking") == 0)){
-            // successful
-            if(user.checkingTransfer(recieverName.getChecking(), amount)){
-              // log
-              log = getTime() + ": " + user.getPersonName() + " made a transfer of $" + amount + " to " + recieverName.getPersonName();
-              user.addLog(log);
-              userAction(log);
-              return true;
-            }
-            // unsuccessful
-            return false;
+        	
+        	if(senderSource.toLowerCase().compareTo("checking") == 0) tempAccount = user.getChecking();
+        	else if (senderSource.toLowerCase().compareTo("savings") == 0) tempAccount = user.getSavings();
+        	else if (senderSource.toLowerCase().compareTo("credit") == 0) tempAccount = user.getCredit();
+        	
+          if((recieverDestination.toLowerCase().compareTo("checking") == 0))
+        	  recieverAccount = recieverName.getChecking();
+          else if(recieverDestination.toLowerCase().compareTo("savings") == 0)
+        	  recieverAccount = recieverName.getSavings();
+          else if(user.getPersonName().toLowerCase().compareTo(recieverName.getPersonName().toLowerCase()) == 0)
+        	  recieverAccount = user.getCredit();
+
+          // successful
+          if(tempAccount.transfer(recieverAccount, amount)){
+            // log
+            log = getTime() + ": " + user.getPersonName() + " made a transfer of $" + amount + " to " + recieverName.getPersonName();
+            user.addLog(log);
+            userAction(log);
+            return true;
           }
-          // transfering from checking to savings
-          if((senderSource.toLowerCase().compareTo("checking") == 0) && (recieverDestination.toLowerCase().compareTo("savings") == 0)){
-            // successful
-            if(user.checkingTransfer(recieverName.getSavings(), amount)){
-              // log
-              log = getTime() + ": " + user.getPersonName() + " made a transfer of $" + amount + " to " + recieverName.getPersonName();
-              user.addLog(log);
-              userAction(log);
-              return true;
-            }
-            // unsuccessful
-            return false;
-          }
-          // transfering from savings to checking
-          if((senderSource.toLowerCase().compareTo("savings") == 0) && (recieverDestination.toLowerCase().compareTo("checking") == 0)){
-            // successful
-            if(user.savingsTransfer(recieverName.getChecking(), amount)){
-              // log
-              log = getTime() + ": " + user.getPersonName() + " made a transfer of $" + amount + " to " + recieverName.getPersonName();
-              user.addLog(log);
-              userAction(log);
-              return true;
-            }
-            //unsuccessful
-            return false;
-          }
-          // transfering from savings to savings
-          if((senderSource.toLowerCase().compareTo("savings") == 0) && (recieverDestination.toLowerCase().compareTo("savings") == 0)){
-            // successful
-            if(user.savingsTransfer(recieverName.getSavings(), amount)){
-              // log
-              log = getTime() + ": " + user.getPersonName() + " made a transfer of $" + amount + " to " + recieverName.getPersonName();
-              user.addLog(log);
-              userAction(log);
-              return true;
-            }
-            // unsuccessful
-            return false;
-          }
-          // transfering to user credit account
-          if(user.getPersonName().toLowerCase().compareTo(recieverName.getPersonName().toLowerCase()) == 0){
-            // successful
-            if(user.creditTransfer(user.getCredit(), amount)){
-              // log
-              log = getTime() + ": " + user.getPersonName() + " made a transfer of $" + amount + " to " + recieverName.getPersonName();
-              user.addLog(log);
-              userAction(log);
-              return true;
-            }
-            //unsuccessful
-            return false;
-          }
+          // unsuccessful
+          return false;
         }
         // not using transaction file
         if(!isTransactionFile){
+          Scanner scnr = new Scanner(System.in);
           System.out.println("\nTransfer Money");
           while(transfer){
             try{
               // transfer menu
-              Scanner scnr = new Scanner(System.in);
               System.out.println("Select Transfer Process");
               System.out.println("1. Your Acounts");
               System.out.println("2. Other users Account");
               System.out.print("> ");
               int userChoice = scnr.nextInt();
 
-              if(userChoice == 1){
+              switch(userChoice){
                 // user transfer within their account
-                System.out.println("Select Account to transfer to:");
+                case 1:
+              	System.out.println("Select Account to transfer to:");
                 System.out.println("1. Checking");
                 System.out.println("2. Savings");
                 System.out.println("3. Credit");
@@ -388,93 +338,85 @@ public class RunBank{
                 System.out.print("> ");
                 double transferAmount = scnr.nextDouble();
 
-                // checking transfer
-                if(transferChoice == 1){
-                  // updates account
-                  if(!user.savingsTransfer(user.getChecking(), transferAmount))transfer = true;
-                  else transfer = false;
-                  // log
-                  if(!transfer){
-                    log = getTime() + ": " + user.getPersonName() + " transfered money from savings to checkings. Checking: $" + user.getCheckingBalance() + " Savings: $" + user.getSavingsBalance();
-                    user.addLog(log);
-                    userAction(log);
-                  }
-                }
-                // savings transfer
-                else if(transferChoice == 2){
-                  // updates account
-                  if(!user.checkingTransfer(user.getSavings(), transferAmount))transfer = true;
-                    else transfer = false;
-                    // log
-                    if(!transfer){
-                      log = getTime() + ": " + user.getPersonName() + " transfered money from checkings to savings. Checking: $" + user.getCheckingBalance() + " Savings: $" + user.getSavingsBalance();
-                      user.addLog(log);
-                      userAction(log);
-                    }
-                }
-                // credit transfer
-                else if(transferChoice == 3){
-                  // updates account
-                  if(!user.creditTransfer(user.getChecking(), transferAmount))transfer = true;
-                  else transfer = false;
-                  // log
-                  if(!transfer){
-                    log = getTime() + ": " + user.getPersonName() + " transfered money from checkings to credit. Checking: $" + user.getCheckingBalance() + " Credit: $" +user.getCreditBalance();
-                    user.addLog(log);
-                    userAction(log);
-                  }
-                }else{
-                  System.out.println("Invalid Option. Try Again!");
-                  transfer = true;
-                }
-              }
-
+	                // checking transfer
+	                switch(transferChoice){
+	                case 1: 
+	                	tempAccount = user.getSavings();
+	                	type = "savings ";
+	                	recieverAccount = user.getChecking();
+	                	type2 = "checking ";
+	                break;
+	                // savings transfer
+	                case 2:
+	                	tempAccount = user.getChecking();
+	                	type = "checking ";
+	                	recieverAccount = user.getSavings();
+	                	type2 = "savings ";
+	                break;
+	                // credit transfer
+	                case 3:
+	                tempAccount = user.getChecking();
+	                type = "checking ";
+	                recieverAccount = user.getCredit();
+	                type2 = "credit ";
+	                break;
+	                default:
+	                  System.out.println("Invalid Option. Try Again!");
+	                  transfer = true;
+	              }
+	                  // updates account
+	                  transfer = !(tempAccount.transfer(user.getChecking(), transferAmount));
+	                  // log
+	                  if(!transfer){
+	                    log = getTime() + ": " + user.getPersonName() + " transfered money from " + type+ "to " + type2 +"\b."+ type.replaceFirst("c", "C") +": $" + tempAccount.getBalance() + type2.replaceFirst("c","C") +": $" +recieverAccount.getBalance();
+	                    user.addLog(log);
+	                    userAction(log);
+	                  }
+              break;
               // transfer to other customers account
-              if(userChoice == 2){
-                // transfer menu
-                Scanner newScnr = new Scanner(System.in);
+                case 2:
+                	// transfer menu
                 System.out.println("Enter name of Person");
                 System.out.print("> ");
-                String otherUser = newScnr.nextLine();
+                scnr.nextLine();
+                String otherUser = scnr.nextLine();
                 otherUser = otherUser.toLowerCase();
 
                 if(database.get(otherUser) != null){
-                  Bank userToTransfer = database.get(otherUser);
+                  Customer userToTransfer = database.get(otherUser);
                   System.out.println("Select Account to transfer");
                   System.out.println("1. Checking");
                   System.out.println("2. Savings");
                   System.out.print("> ");
-                  userChoice = newScnr.nextInt();
+                  userChoice = scnr.nextInt();
 
                   // amount they will transfer
                   System.out.println("Amount to transfer");
                   System.out.print("> ");
-                  double transferAmount = scnr.nextDouble();
+                  double transferAmount1 = scnr.nextDouble();
 
-                  // transfer to checkings account
-                  if(userChoice == 1){
-                    if(!user.checkingTransfer(userToTransfer.getChecking(), transferAmount))transfer = true;
-                    else transfer = false;
-                    if(!transfer){
-                      log = getTime() + ": " + user.getPersonName() + " made a transfer of $" +transferAmount + " to " + userToTransfer.getPersonName();
-                      user.addLog(log);
-                      userAction(log);
-                    }
-                  }
-
-                  else if(userChoice == 2){
-                    if(!user.savingsTransfer(userToTransfer.getSavings(), transferAmount))transfer = true;
-                    else transfer = false;
-                    if(!transfer){
-                      log = getTime() + ": " + user.getPersonName() + " made a transfer of $" +transferAmount + " to " + userToTransfer.getPersonName();
-                      user.addLog(log);
-                      userAction(log);
-                    }
-                  }
-                  else{
+                  // transfer to checking account
+                  switch(userChoice){
+                  case 1:
+                	tempAccount = user.getChecking();
+                	recieverAccount = userToTransfer.getChecking();
+                  break;
+                  case 2:
+                	  tempAccount = user.getSavings();
+                	  recieverAccount = userToTransfer.getSavings();
+                  break;
+                 default:
                     System.out.println("Invalid Option. Try Again!");
                     transfer = true;
+                  break;
+                }
+                  transfer = !(tempAccount.transfer(recieverAccount, transferAmount1));
+                  if(!transfer){
+                    log = getTime() + ": " + user.getPersonName() + " made a transfer of $" +transferAmount1 + " to " + userToTransfer.getPersonName();
+                    user.addLog(log);
+                    userAction(log);
                   }
+                break;
                 }
               }
             }catch(InputMismatchException IME){
@@ -486,8 +428,8 @@ public class RunBank{
       }
         return false;
     }
-
-    /**
+    
+    /**Taken from Rigoberto, Modified by Denise
     * withdraw: This method will get the users account an will withdraw money from it.
     * The only account the user can withdraw from would be from their checkings account.
     * @param  user              Bank: user logged in
@@ -496,37 +438,34 @@ public class RunBank{
     * @param  amount            String: how much to withdraw
     * @return                   boolean: successful
     */
-    public static boolean withdraw(Bank user, boolean isTransactionFile, String source, double amount){
+    public static boolean withdraw(Customer user, boolean isTransactionFile, String source, double amount){
         boolean withdraw = true;
         String log = "";
+        String type = "";
+        Account tempAccount = null;
+        double withdrawAmount = 0;
         // using transaction file
         if(isTransactionFile){
           // withdraw using checking
           if(source.toLowerCase().compareTo("checking") == 0 || source == ""){
-            // withdraw successful
-            if(user.checkingWithdraw(amount)){
-              // log
-              log = getTime() + ": " + user.getPersonName() + " made a withdraw in Checkings account of $" + amount + " " + user.getCheckingAccountNumber() + " Current Balance: $" + user.getCheckingBalance();
-              user.addLog(log);
-              userAction(log);
-              return true;
-            }
-            // unsuccessful
-            return false;
+            tempAccount = user.getChecking();
+            type = "Checking ";
           }
           // withdraw savings
           if(source.toLowerCase().compareTo("savings") == 0){
-            // withdraw successful
-            if(user.savingsWithdraw(amount)){
-              // log
-              log = getTime() + ": " + user.getPersonName() + " made a withdraw in Savings account of $" + amount + " " + user.getSavingsAccountNumber() + " Current Balance: $" + user.getSavingsBalance();
-              user.addLog(log);
-              userAction(log);
-              return true;
-            }
-            // unsuccessful
-            return false;
+        	  tempAccount = user.getSavings();
+        	  type = "Savings ";
+          }          
+      	// withdraw successful
+          if(tempAccount.withdraw(amount)){
+            // log
+            log = getTime() + ": " + user.getPersonName() + " made a withdraw in "+type+ "account of $" + amount + " " + tempAccount.getAccountNumber() + " Current Balance: $" + tempAccount.getBalance();
+            user.addLog(log);
+            userAction(log);
+            return true;
           }
+          // unsuccessful
+          return false;
         }
         // not using transaction file
         if(!isTransactionFile){
@@ -541,37 +480,30 @@ public class RunBank{
                 System.out.print("> ");
                 int userChoice = scnr.nextInt();
 
-                if(userChoice == 1){
-                  System.out.println("Amount to Withdraw: ");
-                  System.out.print("> $");
-                  double withdrawAmount = scnr.nextDouble();
+                switch(userChoice){
+                case 1: tempAccount = user.getChecking();
+                  type = "Checking ";
 
-                  if(!user.checkingWithdraw(withdrawAmount))withdraw = true;
-                  else withdraw = false;
-
-                  if(!withdraw){
-                    log = getTime() + ": " + user.getPersonName() + " made a withdraw in Checkings account of $" + withdrawAmount + " " + user.getCheckingAccountNumber() + " Current Balance: $" + user.getCheckingBalance();
-                    user.addLog(log);
-                    userAction(log);
-                  }
-                }
-                else if(userChoice == 2){
-                  System.out.println("Amount to Withdraw: ");
-                  System.out.print("> $");
-                  double withdrawAmount = scnr.nextDouble();
-
-                  if(!user.savingsWithdraw(withdrawAmount))withdraw = true;
-                  else withdraw = false;
-
-                  if(!withdraw){
-                    log = getTime() + ": " + user.getPersonName() + " made a withdraw in Checkings account of $" + withdrawAmount + " " + user.getCheckingAccountNumber() + " Current Balance: $" + user.getCheckingBalance();
-                    user.addLog(log);
-                    userAction(log);
-                  }
-                }
-                else{
+                  break;
+                case 2: tempAccount = user.getSavings();
+                	type = "Savings ";
+                  break;
+                 default:
                   System.out.println("Invalid option. Please Try again!");
                   withdraw = true;
+                  
+                }
+                  
+                  if(userChoice == 1 || userChoice == 2) {
+                      System.out.println("Amount to Withdraw: ");
+                      System.out.print("> $");
+                      withdrawAmount = scnr.nextDouble();
+                      withdraw = !(tempAccount.withdraw(withdrawAmount));
+                  if(!withdraw){
+                    log = getTime() + ": " + user.getPersonName() + " made a withdraw in "+type+ "account of $" + withdrawAmount + " " + tempAccount.getAccountNumber() + " Current Balance: $" + tempAccount.getBalance();
+                    user.addLog(log);
+                    userAction(log);
+                  }
                 }
               }catch(InputMismatchException IME){
                 System.out.println("Please enter a valid withdraw amount");
@@ -583,7 +515,8 @@ public class RunBank{
       return false;
     }
 
-    /**
+    //Changed by Denise
+    /**Taken from Rigoberto, Modified by Denise
     * deposit: This method will get the users account and deposit the
     * amount they entered. User decides which account the money
     * will be added to.
@@ -593,44 +526,41 @@ public class RunBank{
     * @param  amount            Double: how much to deposit
     * @return                   boolean: successful
     */
-    public static boolean deposit(Bank user, boolean isTransactionFile, String source, double amount){
+    public static boolean deposit(Customer user, boolean isTransactionFile, String source, double amount){
         boolean deposit = true;
         String log = "";
+        String type = "";
+        Account tempAccount = null;
+        double depositAmount;
         // transaction file is being used
         if(isTransactionFile){
           // enter money into checking
           if(source.toLowerCase().compareTo("checking") == 0 || source == ""){
-            // successful deposit
-            if(user.checkingDeposit(amount)){
-              // log
-              log = getTime() + ": " + user.getPersonName() + " made a deposit in Checkings Account of $" + amount + " " + user.getCheckingAccountNumber() + " Curent Balance: $" + user.getCheckingBalance();
-              user.addLog(log);
-              userAction(log);
-              return true;
-            }
-            // unsuccessful
-            return false;
+        	  tempAccount =user.getChecking();
+        	  type = "Checking ";
+          } else if(source.toLowerCase().compareTo("savings") == 0){
+              // enter money into savings
+        	  tempAccount = user.getSavings();
+        	  type = "Savings ";
           }
-          // enter money into savings
-          if(source.toLowerCase().compareTo("savings") == 0){
-            // successful deposit
-            if(user.savingsDeposit(amount)){
-              // log
-              log = getTime() + ": " + user.getPersonName() + " made a deposit int Savings Account of $" + amount + " " + user.getSavingsAccountNumber() + " Cuurent Balance: $" + user.getSavingsBalance();
-              user.addLog(log);
-              userAction(log);
-              return true;
-            }
-            // unsuccessful
-            return false;
+          // successful deposit
+          if(tempAccount.deposit(amount)){
+            // log
+            log = getTime() + ": " + user.getPersonName() + " made a deposit in "+ type + "Account of $" + amount + " " + tempAccount.getAccountNumber() + " Curent Balance: $" + tempAccount.getBalance();
+            user.addLog(log);
+            userAction(log);
+            return true;
           }
+          // unsuccessful
+          return false;
         }
+        
         // not using transaction file
         if(isTransactionFile == false){
-          System.out.println("\nDeposit Moeny");
+          System.out.println("\nDeposit Money");
           while(deposit){
             try{
-              // deposit meun
+              // deposit menu
               Scanner scnr = new Scanner(System.in);
               System.out.println("Select account to deposit: ");
               System.out.println("1. Checking");
@@ -638,40 +568,34 @@ public class RunBank{
               System.out.print("> ");
               int userChoice = scnr.nextInt();
 
-              // add money to their checkings account
-              if(userChoice == 1){
-                System.out.println("Amount to Deposit: ");
-                System.out.print("> $");
-                double depositAmount = scnr.nextDouble();
-                // updates account
-                if(!user.checkingDeposit(depositAmount))deposit = true;
-                else deposit = false;
-                // make log if deposit was succesful
-                if(!deposit){
-                  log = getTime() + ": " + user.getPersonName() + " made a deposit in Checkings Account of $" + depositAmount+ " " + user.getCheckingAccountNumber() + " Cuurent Balance: $" + user.getCheckingBalance();
-                  userAction(log);
-                  user.addLog(log);
-                }
-              }
+              // add money to their checking account
+              switch(userChoice){
+              case 1:
+            	tempAccount = user.getChecking();
+            	type = "Checking ";
+              break;
                 // add money to their savings account
-              else if(userChoice == 2){
-                System.out.println("Amount to Deposit: ");
-                System.out.print("> $");
-                double depositAmount = scnr.nextDouble();
-                // update savings account
-                if(!user.savingsDeposit(depositAmount))deposit = true;
-                else deposit = false;
-                // make log if deposit was succesful
-                if(!deposit){
-                  log = getTime() + ": " + user.getPersonName() + " made a deposit int Savings Account of $" + depositAmount+ " " + user.getSavingsAccountNumber() + " Cuurent Balance: $" + user.getSavingsBalance();
-                  user.addLog(log);
-                  userAction(log);
-                }
-              }
+              case 2:
+            	tempAccount = user.getSavings();
+            	type = "Savings ";
+              break;
               // invalid options
-              else{
+              default:
                 System.out.println("Invalid Option. Try Again!");
                 deposit = true;
+              }
+              if(!type.equals("")){
+                  System.out.println("Amount to Deposit: ");
+                  System.out.print("> $");
+                  depositAmount = scnr.nextDouble();
+                  // updates account
+                  deposit = !(tempAccount.deposit(depositAmount));
+                  // make log if deposit was successful
+                  if(!deposit){
+                    log = getTime() + ": " + user.getPersonName() + " made a deposit in "+ type +"Account of $" + depositAmount+ " " + tempAccount.getAccountNumber() + " Cuurent Balance: $" + tempAccount.getBalance();
+                    userAction(log);
+                    user.addLog(log);
+                  }
               }
             }catch(InputMismatchException IME){
               System.out.println("Invalid Input");
@@ -683,8 +607,9 @@ public class RunBank{
       return false;
     }
 
-
-    /**
+    //Changed by Denise
+    
+    /**Taken from Rigoberto, Modified by Denise
     * inquireBalance: This method will display the account details of the user logged in.
     * Whether it be checking, savings, or credit, the user will be able to
     * see their account
@@ -693,10 +618,12 @@ public class RunBank{
     * @param  view              view: which account to view
     * @return                   boolean: user was successful in getting account information
     */
-    public static boolean inquireBalance(Bank user, boolean isTransactionFile, String view){
+    public static boolean inquireBalance(Customer user, boolean isTransactionFile, String view){
         boolean inquire = true;
         String logs = "";
         int userChoice = 0;
+        String type = "";
+        Account tempAccount = null;
 
         // user wants to acquire information
         while(inquire){
@@ -720,52 +647,30 @@ public class RunBank{
                 }
 
                 // checking account data
-                if(userChoice == 1){
-                  System.out.println("*****************************************");
-                  System.out.println("Checking Account Number: " + user.getCheckingAccountNumber());
-                  System.out.println("Checking Balance: " + user.getCheckingBalance());
-                  System.out.println("*****************************************\n");
-                  // log
-                  logs = getTime() + ": " + user.getPersonName() + " inquire Checking Balance " + user.getCheckingAccountNumber() + ": $" + user.getCheckingBalance();
-                  user.addLog(logs);
-                  userAction(logs);
+                switch(userChoice){
+                case 1: tempAccount = user.getChecking();
+                		type = "Checking ";
                   inquire = false;
-                }
+                break;
                 //savings account data
-                else if(userChoice == 2){
-                  System.out.println("*****************************************");
-                  System.out.println("Savings Account Number: " + user.getSavingsAccountNumber());
-                  System.out.println("Savings Balance: " + user.getSavingsBalance());
-                  System.out.println("*****************************************\n");
-                  // log
-                  logs = getTime() + ": " + user.getPersonName() + " inquire Savings Balance " + user.getSavingsAccountNumber() + ": $" + user.getSavingsBalance();
-                  user.addLog(logs);
-                  userAction(logs);
+                case 2: tempAccount = user.getSavings();
+                		type = "Savings ";
                   inquire = false;
-                }
+                break;
                 // credit account data
-                else if(userChoice == 3){
-                  System.out.println("*****************************************");
-                  System.out.println("Credit Account Number: " + user.getCreditAccountNumber());
-                  System.out.println("Credit Balance: " + user.getCreditBalance());
-                  System.out.println("Credit Max: " + user.getMax());
-                  System.out.println("*****************************************\n");
-                  // log
-                  logs = getTime() + ": " + user.getPersonName() + " inquire Credit Balance " + user.getCreditAccountNumber() + ": $" + user.getCreditBalance();
-                  user.addLog(logs);
-                  userAction(logs);
-
+                case 3: tempAccount = user.getCredit();
+                		type = "Credit ";
                   inquire = false;
-                }
+                break;
                 // all accounts data
-                else if(userChoice == 4){
+                case 4:
                   System.out.println("*****************************************");
-                    System.out.println("Checking Account Number: " + user.getCheckingAccountNumber());
-                    System.out.println("Checking Balance: " + user.getCheckingBalance());
-                    System.out.println("Savings Account Number: " + user.getSavingsAccountNumber());
-                    System.out.println("Savings Balance: " + user.getSavingsBalance());
-                    System.out.println("Credit Account Number: " + user.getCreditAccountNumber());
-                    System.out.println("Credit Balance: " + user.getCreditBalance());
+                    System.out.println("Checking Account Number: " + user.getChecking().getAccountNumber());
+                    System.out.println("Checking Balance: " + user.getChecking().getBalance());
+                    System.out.println("Savings Account Number: " + user.getSavings().getAccountNumber());
+                    System.out.println("Savings Balance: " + user.getSavings().getBalance());
+                    System.out.println("Credit Account Number: " + user.getCredit().getAccountNumber());
+                    System.out.println("Credit Balance: " + user.getCredit().getBalance());
                     System.out.println("Credit Max: " + user.getMax());
                     System.out.println("*****************************************");
                     // log
@@ -773,13 +678,24 @@ public class RunBank{
                     user.addLog(logs);
                     userAction(logs);
                     inquire = false;
-                }
+                break;
                 // user exits menu
-                else if(userChoice == 5)inquire = false;
-                else{
+                case 5: inquire = false; break;
+                default: 
                   // user enters invalid menu option
                   System.out.println("Invalid Option Try again!");
                   inquire = true;
+                break;
+                }
+                if(userChoice<4) {
+                	System.out.println("*****************************************");
+                	System.out.println(type + "Account Number: " + tempAccount.getAccountNumber());
+                	System.out.println(type +"Balance: " + tempAccount.getBalance());
+                	System.out.println("*****************************************\n");
+                	// log
+	                logs = getTime() + ": " + user.getPersonName() + " inquire "+ type +"Balance " + tempAccount.getAccountNumber() + ": $" + tempAccount.getBalance();
+	                user.addLog(logs);
+	                userAction(logs);
                 }
             }catch(InputMismatchException IME){
               // user enters value that is not a character
@@ -790,7 +706,8 @@ public class RunBank{
         return true;
     }
 
-    /**
+    
+    /**Taken From Rigoberto, Modified by Denise
      * userMenu: This method will display the user menu. The user will be
      * able to do various things like deposit or withdraw.
      *
@@ -798,7 +715,7 @@ public class RunBank{
      * @param database bank: all users
      * @return boolean: user want to logout
      */
-    public static boolean userMenu(Bank user, HashMap<String, Bank> database){
+    public static boolean userMenu(Customer user, HashMap<String, Customer> database){
         boolean menu = true;
         // keep going if user until users does not want to
         while(menu){
@@ -813,16 +730,18 @@ public class RunBank{
                 System.out.println("5. Logout");
                 System.out.print("> ");
                 int userChoice = scnr.nextInt();
-
-                // funtionalities
-                if(userChoice == 1)menu = inquireBalance(user, false, "");
-                else if(userChoice == 2)menu = deposit(user, false, "", 0);
-                else if(userChoice == 3)menu = withdraw(user, false, "", 0);
-                else if(userChoice == 4)menu = transfer(user, database, false, "", "", null, "", 0);
-                else if(userChoice == 5)return true;
-                else{
+                
+                // functionalities
+                switch(userChoice) {
+                case 1: menu = inquireBalance(user, false, ""); break;
+                case 2: menu = deposit(user, false, "", 0); break;
+                case 3: menu = withdraw(user, false, "", 0); break;
+                case 4: menu = transfer(user, database, false, "", "", null, "", 0); break;
+                case 5: scnr.close(); return true;
+                default:
                   System.out.println("Invalid Menu Choice. Try Again!");
                   menu = true;
+                break;
                 }
             }catch(InputMismatchException IME){
                 System.out.println("Please enter a valid menu option [1 - 5]");
@@ -832,8 +751,15 @@ public class RunBank{
         return true;
     }
 
-    public static boolean userAndPasswordMatch(Bank userToLogin){
+    
+    /**Taken from Rigoberto
+     * 
+     * @param userToLogin
+     * @return
+     */
+    public static boolean userAndPasswordMatch(Customer userToLogin){
       Scanner scnr = new Scanner(System.in);
+      //System.out.print("{This is the PassWord:"+userToLogin.getPersonPassword() + "}\n");
       System.out.print("Password: ");
       String password = scnr.nextLine();
 
@@ -842,7 +768,7 @@ public class RunBank{
     }
 
 
-        /**
+        /**Taken from Rigoberto
          * transactionBuffer: Depending on what the header action request, the buffer
          * will call different methods and complete the task.
          * @param  db HashMap: contains all users
@@ -855,9 +781,9 @@ public class RunBank{
          * @return    Boolean: transaction was complete? User found?
          *
          * IMPPORTANT:
-         * Test if the user that does not exists can still preform task
+         * Test if the user that does not exists can still perform task
          */
-        public static boolean transactionBuffer(HashMap<String, Bank> database, String sn, String ss, String a, String rn, String rd, String sa){
+        public static boolean transactionBuffer(HashMap<String, Customer> database, String sn, String ss, String a, String rn, String rd, String sa){
           // checks if sender amount is a double
           try{
             Double.parseDouble(sa);
@@ -865,7 +791,7 @@ public class RunBank{
             System.out.println("Not a number found!");
             return false;
           }
-          Bank senderName = database.get(sn.toLowerCase());
+          Customer senderName = database.get(sn.toLowerCase());
           if(senderName == null && a.toLowerCase().compareTo("deposits") == 0){
             senderName = database.get(rn.toLowerCase());
             ss = "checking";
@@ -880,7 +806,7 @@ public class RunBank{
             return false;
           }
           if(a.toLowerCase().compareTo("pays") == 0 || a.toLowerCase().compareTo("transfers") == 0){
-            Bank recieverName = database.get(rn.toLowerCase());
+            Customer recieverName = database.get(rn.toLowerCase());
             if(recieverName == null)return false;
             if(transfer(senderName, database, true, sn, ss, recieverName, rd, Double.parseDouble(sa)))return true;
             return false;
@@ -891,16 +817,16 @@ public class RunBank{
           }
           return true;
         }
-    /**
+    /**Taken from Rigoberto
      * Transaction: This method will get the array of strings that contain the
      * header of the .txt file read. it will then look through the txt file to
      * find the data that corresponds to it. It will then send that information
-     * to a buffer to be cpompleted. Prints out if action was completed or not
+     * to a buffer to be completed. Prints out if action was completed or not
      * @param  db       HashMap: contains all users
      * @param  fileName String: Name of file
      * @return          Boolean: when all the tasks have been finished
      */
-    public static boolean transactions(HashMap<String, Bank> database, String fileName){
+    public static boolean transactions(HashMap<String, Customer> database, String fileName){
       // Header array
       String transactionFields[] = fileFields(fileName);
       // fields to look for
@@ -951,16 +877,16 @@ public class RunBank{
       }
     }
 
-    /**
-     * makeStatement: asks manager to enter name of customer to make bank statment for
+    /**Taken from Rigoberto
+     * makeStatement: asks manager to enter name of customer to make bank statement for
      * repeats until we have found a customer
      * @param database HashMap: contains all users
      */
-    public static void makeStatement(HashMap<String, Bank> database){
+    public static void makeStatement(HashMap<String, Customer> database){
       Scanner scnr = new Scanner(System.in);
       System.out.println("Customer Name: ");
       String managerUser = scnr.nextLine();
-      Bank userToStatement = database.get(managerUser.toLowerCase());
+      Customer userToStatement = database.get(managerUser.toLowerCase());
       while(userToStatement == null){
         System.out.print("Customer Name: ");
         managerUser = scnr.nextLine();
@@ -970,14 +896,14 @@ public class RunBank{
       userStatement.statement();
     }
 
-    /**
+    /**Taken from Rigoberto, Modified by Denise
      * managerMenu: This method will display the manager menu. The manager
      * will be able to see other users accounts
      *
      * @param database Bank:all users ()
      * @return boolean: keep using program
      */
-    public static boolean managerMenu(HashMap<String, Bank> database){
+    public static boolean managerMenu(HashMap<String, Customer> database){
         Scanner scnr = new Scanner(System.in);
         boolean manager = true;
         String log = "";
@@ -985,7 +911,7 @@ public class RunBank{
         // keep going until manager does not want to uise account anymore
         while(manager != false){
             try{
-                // meun
+                // menu
                 System.out.println("Manager Menu");
                 System.out.println("1. Inquire User Account");
                 System.out.println("2. Inquire All Accounts");
@@ -1001,7 +927,7 @@ public class RunBank{
                     System.out.println("Enter Name of User");
                     System.out.print("> ");
                     String userName = scnr.nextLine();
-                    Bank userToInquire = database.get(userName.toLowerCase());
+                    Customer userToInquire = database.get(userName.toLowerCase());
                     if(userToInquire != null){
                       log = "Manager inquired " + userToInquire.getPersonName() + " Account";
                       manager = inquireBalance(userToInquire, false, "");
@@ -1013,12 +939,12 @@ public class RunBank{
                   for(String customer: database.keySet()){
                     System.out.println();
                     System.out.println("Customer Name: " + database.get(customer).getPersonName());
-                    System.out.println("Checking Account Number: " + database.get(customer).getCheckingAccountNumber());
-                    System.out.println("Savings Account Number: " + database.get(customer).getSavingsAccountNumber());
-                    System.out.println("Credit Account Number: " + database.get(customer).getCreditAccountNumber());
-                    System.out.println("Checking Balance: " + database.get(customer).getCheckingAccountNumber());
-                    System.out.println("Savings Balance: " + database.get(customer).getSavingsAccountNumber());
-                    System.out.println("Credit Balance: " + database.get(customer).getCreditAccountNumber());
+                    System.out.println("Checking Account Number: " + database.get(customer).getChecking().getAccountNumber());
+                    System.out.println("Savings Account Number: " + database.get(customer).getSavings().getAccountNumber());
+                    System.out.println("Credit Account Number: " + database.get(customer).getCredit().getAccountNumber());
+                    System.out.println("Checking Balance: " + database.get(customer).getChecking().getAccountNumber());
+                    System.out.println("Savings Balance: " + database.get(customer).getSavings().getAccountNumber());
+                    System.out.println("Credit Balance: " + database.get(customer).getCredit().getAccountNumber());
                     System.out.println();
                   }
                   //userLog(log);
@@ -1045,17 +971,20 @@ public class RunBank{
         return false;
     }
 
-    /**
-     * userLogin: This method wil find the user from the database and login
+    //Scanner Skipping believed happening here, Denise
+    /**Taken from Rigoberto
+     * userLogin: This method will find the user from the database and login
      * into their account, or their manager account.
      * @param database Bank: all users
      * @return Bank: user was found or null if not
      */
-    public static Bank userLogin(HashMap<String, Bank> database){
+    public static Customer userLogin(HashMap<String, Customer> database){
         boolean login = false;
         int attempts = 3;
+        String loginName = "";
         // keep going while we want to login
         while(!login){
+            Scanner rescnr = new Scanner(System.in);
             Scanner scnr = new Scanner(System.in);
             // menu
             System.out.println("****************************");
@@ -1069,8 +998,13 @@ public class RunBank{
             System.out.println();
             System.out.println("Enter Your Full Name: EX: Mickey Mouse");
             System.out.print("> ");
-            String loginName = scnr.nextLine();
+            try {
+            loginName = rescnr.nextLine();
             loginName = loginName.toLowerCase();
+            }catch(NoSuchElementException e) {
+            	System.out.println("!Q");
+            	loginName = "!q";
+            }
 
             // quit
             if(loginName.toLowerCase().compareTo("!q") == 0){
@@ -1103,17 +1037,18 @@ public class RunBank{
         return null;
     }
 
-    /**
+    
+    /**Taken from Rigoberto
     * createBank: This method will get the txt which contains all the user
     * data and will take certain data fields and initialize them to their
-    * apporpiate class. Once all data has been organized, the instances will be set
+    * appropriate class. Once all data has been organized, the instances will be set
     * in a HashMap
     * @param  fields[] String: header array
     * @return          HashMap: all users
     */
-    public static HashMap<String, Bank> createBank(String fields[]){
+    public static HashMap<String, Customer> createBank(String fields[]){
       // creates hashmap with String insert key, and value of type Bank
-      HashMap<String, Bank> bankDataBase = new HashMap<>();
+      HashMap<String, Customer> bankDataBase = new HashMap<>();
       // default values for users
       String firstName = "";
       String lastName = "";
@@ -1140,7 +1075,7 @@ public class RunBank{
             while(scnr.hasNextLine()){
                 line = scnr.nextLine();
                 String[] splitter = line.split("\t");
-                // gets user data accrding to what we are looking for
+                // gets user data according to what we are looking for
                 for(int i = 0; i < fields.length; i++){
                     if(fields[i].toLowerCase().compareTo("first name") == 0)firstName = splitter[i];
                     else if(fields[i].toLowerCase().compareTo("last name") == 0)lastName = splitter[i];
@@ -1164,11 +1099,11 @@ public class RunBank{
                 if(hashMapInsertKey != null){
                   // creates objects of each type, Customer, Checking, Savings, and credit
                   Person person = new Customer(firstName, lastName, dateOfBirth, email, idNumber, password, address, phoneNumber);
-                  Account checking = new Checking(Integer.parseInt(checkingAccountNumber), Double.parseDouble(checkingStartingBalance));
-                  Account savings = new Savings(Integer.parseInt(savingAccountNumber), Double.parseDouble(savingStartingBalance));
-                  Account credit = new Credit(Integer.parseInt(creditAccountNumber), Double.parseDouble(creditStartingBalance), Integer.parseInt(creditMax));
+                  Checking checking = new Checking(Integer.parseInt(checkingAccountNumber), Double.parseDouble(checkingStartingBalance));
+                  Savings savings = new Savings(Integer.parseInt(savingAccountNumber), Double.parseDouble(savingStartingBalance));
+                  Credit credit = new Credit(Integer.parseInt(creditAccountNumber), Double.parseDouble(creditStartingBalance), Integer.parseInt(creditMax));
                   // adds user to hashMap based on key
-                  Bank newUser = new Bank(person, checking, savings, credit);
+                  Customer newUser = new Customer(person, checking, savings, credit);
                   bankDataBase.put(hashMapInsertKey, newUser);
                 }
             }
@@ -1182,7 +1117,7 @@ public class RunBank{
         return bankDataBase;
     }
 
-    /**
+    /**Taken from Rigoberto
      * createLogFile: creates the log file.
      */
     public static void createLogFile(){
@@ -1199,7 +1134,7 @@ public class RunBank{
       }
     }
 
-    /**
+    /**Taken from Rigoberto
      * userAction: this method will record what all the users have done into a
      * .txt file
      * @param accountActions String: what did the user do while logged in
