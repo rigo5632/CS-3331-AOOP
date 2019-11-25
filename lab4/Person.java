@@ -8,6 +8,7 @@ abstract class Person{
     private String Address;
     private String phoneNumer;
 
+    Person(){}
 
     /**
      * Constructor
