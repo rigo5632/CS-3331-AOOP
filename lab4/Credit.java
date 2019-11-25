@@ -23,7 +23,7 @@ public class Credit extends Account{
     /**
      * deposit: In credit account, the user is not able to make a deposit
      * @param amount double: how much to deposit
-     * @return boolean: succesful
+     * @return boolean: successful
      */
     @Override
     public boolean deposit(double amount){
@@ -34,7 +34,7 @@ public class Credit extends Account{
     /**
      * withdraw: In credit account, the user is not able to make a withdraw
      * @param amount double: how much to withdraw
-     * @return boolean: succesful
+     * @return boolean: successful
      */
     @Override
     public boolean withdraw(double amount){
@@ -47,7 +47,7 @@ public class Credit extends Account{
      * to pay their debt.
      * @param checkingAccount Account: user checking account
      * @param amount double: amount to transfer
-     * @return boolean: succesful
+     * @return boolean: successful
      */
     @Override
     public boolean transfer(Account checkingAccount, double amount){
@@ -57,7 +57,7 @@ public class Credit extends Account{
             System.out.println("Please enter a correct amount");
             System.out.println("********************\n");
             return false;
-        }
+        } else
         // amount is greater than current balance. User should only pay dept, not more
         if(amount > -super.getBalance()){
             System.out.println("\n********************");
